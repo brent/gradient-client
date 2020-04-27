@@ -8,7 +8,6 @@ import { Slider } from '../Slider';
 export const App = () => (
   <div className={ styles.app }>
     <Header />
-    <h1>gradient</h1>
     <Slider />
     <Footer />
   </div>
