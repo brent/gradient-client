@@ -1,5 +1,5 @@
 class GradientGenerator {
-  generateGradient(startHexColor, endHexColor, steps) {
+  generate(startHexColor, endHexColor, steps) {
     // strips '#' from start of values, if present
     const start = this._sanitize(startHexColor);
     const end = this._sanitize(endHexColor);
@@ -20,7 +20,7 @@ class GradientGenerator {
     const gDelta = startRgb.g - endRgb.g;
     const bDelta = startRgb.b - endRgb.b;
 
-    // what are the increments to step through acrorss each rgb value?
+    // what are the increments to step through across each rgb value?
     const rStep = Math.round(rDelta/(steps - 1));
     const gStep = Math.round(gDelta/(steps - 1));
     const bStep = Math.round(bDelta/(steps - 1));
