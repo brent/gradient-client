@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { AppView } from '../AppView';
+import { AppView, appViewType } from '../AppView';
 import { Slider } from '../Slider';
 
 import styles from './styles.module.css';
@@ -18,8 +18,10 @@ export const SentimentCaptureView = () => {
   }
 
   return (
-    <AppView className={ styles.sentimentCaptureView }
+    <AppView
+      className={ styles.sentimentCaptureView }
       style={{ backgroundColor: `${currentColor}` }}
+      type={ appViewType.fullBleed }
     >
       <Slider
         colors={ colors }
