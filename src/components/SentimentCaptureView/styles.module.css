@@ -1,2 +1,63 @@
 .sentimentCaptureView {
+  padding: 0;
+  flex-direction: column;
+  display: flex;
+}
+
+.greeting {
+  align-items: center;
+  color: #fff;
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
+  flex: 1;
+}
+
+.greetingBigText {
+  font-weight: 900;
+  font-size: 8rem;
+  margin-bottom: 2rem;
+}
+
+.greetingMedText {
+  font-size: 1.5rem;
+}
+
+.contentCard {
+  align-self: flex-end;
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: 0 -0.125rem 1rem rgba(0, 0, 0, 0.07);
+  height: auto;
+  padding-top: 2rem;
+  width: 100%;
+}
+
+.ctaWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+
+.cta {
+  background: #eee;
+  border: none;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  font-size: 1.25rem;
+  font-weight: 700;
+  outline: none;
+  padding: 1rem;
+}
+
+.ctaPrimary {
+  color: #fff;
+}
+
+.ctaSecondary {
+  border-style: solid;
+  border-width: 0.25rem;
+  background: none;
+  margin-bottom: 1rem;
 }
