@@ -5,7 +5,7 @@ describe('GradientGenerator', () => {
     const startColor = '1a2b3c';
     const endColor = 'a1b2c3';
 
-    const result = GradientGenerator.generateGradient(startColor, endColor, 8);
+    const result = GradientGenerator.generate(startColor, endColor, 8);
 
     expect(Array.isArray(result)).toBe(true);
   });
@@ -14,14 +14,14 @@ describe('GradientGenerator', () => {
     const startColor = 'fedcba';
     const endColor = '012345';
 
-    const result = GradientGenerator.generateGradient(startColor, endColor, 10);
+    const result = GradientGenerator.generate(startColor, endColor, 10);
     const expectedLength = 10;
 
     expect(result.length).toEqual(expectedLength);
   });
 
   test('it returns an array of hex colors', () => {
-    const result = GradientGenerator.generateGradient('eee', 'aaa', 5);
+    const result = GradientGenerator.generate('eee', 'aaa', 5);
     const expected = ['#eeeeee', '#dddddd', '#cccccc', '#bbbbbb', '#aaaaaa'];
 
     expect(result).toEqual(expected);
