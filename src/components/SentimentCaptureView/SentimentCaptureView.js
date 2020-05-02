@@ -10,11 +10,12 @@ import GradientGenerator from '../../utils/GradientGenerator/GradientGenerator';
 
 export const SentimentCaptureView = () => {
   const [ colors, setColors ] = useState(GradientGenerator.generate('#E3D483', '#00BFD9', 100));
-  const startIndex = Math.round(colors.length/2);
+  const startIndex = Math.round(colors.length / 2);
   const [ currentColor, setCurrentColor ] = useState(colors[startIndex]);
   const [ sliderPosition, setSliderPosition ] = useState(startIndex);
 
   const handleSliderChange = (e) => {
+    console.log(`color[${sliderPosition}]: ${currentColor}`);
     setCurrentColor(colors[e.target.value]);
     setSliderPosition(e.target.value);
   }
@@ -30,11 +31,27 @@ export const SentimentCaptureView = () => {
     return hex;
   }
 
-  const handleSubmit = (e) => {
+  const handleRandomColorClick = (e) => {
     e.preventDefault();
     const colors = GradientGenerator.generate(generateRandomHex(), generateRandomHex(), 100);
     setColors(colors);
     setCurrentColor(colors[sliderPosition]);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let payload = {
+      entry: {
+        value: sliderPosition,
+        color: currentColor,
+      },
+      note: {
+        content: '',
+      }
+    };
+
+    console.log(payload);
   }
 
   return (
@@ -51,10 +68,9 @@ export const SentimentCaptureView = () => {
 
       <ContentCard className={ styles.contentCard }>
         <Slider
-          colors={ colors }
           onChange={ handleSliderChange }
           min='0'
-          max={ colors.length }
+          max={ colors.length - 1 }
           step='1'
         />
 
@@ -65,8 +81,9 @@ export const SentimentCaptureView = () => {
               borderColor: `${currentColor}`,
               color: `${currentColor}`
             }}
+            onClick={ handleRandomColorClick }
           >
-          Add note
+          Randomize colors
           </button>
           <button
             className={ `${ styles.cta } ${ styles.ctaPrimary }`}
