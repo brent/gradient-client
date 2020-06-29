@@ -11,27 +11,17 @@ import { SentimentCaptureView } from '../SentimentCaptureView';
 import { SentimentListView } from '../SentimentListView';
 import { LoginView } from '../LoginView';
 import { LogoutView } from '../LogoutView';
+import { PrivateRoute } from '../PrivateRoute';
 
 export const App = () => {
   return (
     <div className={ styles.app } >
       <Router>
         <Switch>
-          <Route path="/login">
-            <LoginView />
-          </Route>
-
-          <Route path="/logout">
-            <LogoutView />
-          </Route>
-
-          <Route path="/create">
-            <SentimentCaptureView />
-          </Route>
-
-          <Route path="/">
-            <SentimentListView />
-          </Route>
+          <Route path="/login" component={ LoginView } />
+          <PrivateRoute path="/logout" component={ LogoutView } />
+          <PrivateRoute path="/create" component={ SentimentCaptureView } />
+          <PrivateRoute path="/" component={ SentimentListView } />
         </Switch>
       </Router>
     </div>
