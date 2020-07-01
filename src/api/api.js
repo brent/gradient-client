@@ -1,25 +1,7 @@
-import axios from 'axios';
-
-const host = ((env) => {
-  switch(env) {
-    case 'development':
-      return 'localhost';
-    case 'production':
-      return 'gradientapp.co';
-    default:
-      throw new Error('no environment specified');
-      return null;
-  }
-})(process.env.NODE_ENV);
-
-const port = '3000';
-const apiRoute = 'api/v1';
-const BASE_URL = ((host, port, apiRoute) => {
-  if (!host || !apiRoute) { throw new Error('BASE_URL not set') }
-  return (port !== null || port !== undefined)
-    ? `http://${host}:${port}/${apiRoute}`
-    : `http://${host}/${apiRoute}`;
-})(host, port, apiRoute);
+import {
+  gvAxios as axios,
+  BASE_URL,
+} from './axiosConfig';
 
 class API {
   async testRequest() {
@@ -37,12 +19,16 @@ class API {
   }
 
   async logUserIn({ username, password }) {
-    const logInParams = {
-      'username': username,
-      'password': password,
-    }
+    let params = new URLSearchParams();
+    params.append('username', username);
+    params.append('password', password);
 
-    const res = await axios.post(`${BASE_URL}/auth/login`, logInParams);
+    const res = await axios.post(`${BASE_URL}/auth/login`, params);
+    return res.data;
+  }
+
+  async getEntriesForUser() {
+    const res = await axios.get(`${BASE_URL}/entries`);
     return res.data;
   }
 }
