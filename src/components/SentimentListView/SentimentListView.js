@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AppView, appViewType } from '../AppView';
 import { api } from '../../api';
+import moment from 'moment';
 import styles from './styles.module.css';
 
 const getEntries = async (api) => {
@@ -16,15 +17,17 @@ const renderEntries = (entries) => {
 const SentimentListItem = ({
   entry: { id, color, sentiment, created_at }
 }) => {
+  const dayOfWeek = moment(created_at).format('dddd');
+  const date = moment(created_at).format('MMM Do, YYYY');
+
   return (
     <li
       key={id}
       className={styles.sentimentListItem}
       style={{ background: `#${color}` }}
     >
-      <p>color: {color}</p>
-      <p>sentiment: {sentiment}</p>
-      <p>created: {created_at}</p>
+      <h4>{ date }</h4>
+      <h3>{ dayOfWeek }</h3>
     </li>
   );
 }
