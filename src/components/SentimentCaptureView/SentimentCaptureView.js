@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { AppView, appViewType } from '../AppView';
 import { ContentCard } from '../ContentCard';
@@ -8,11 +9,14 @@ import styles from './styles.module.css';
 
 import GradientGenerator from '../../utils/GradientGenerator/GradientGenerator';
 
+import { api } from '../../api';
+
 export const SentimentCaptureView = () => {
-  const [ colors, setColors ] = useState(GradientGenerator.generate('#E3D483', '#00BFD9', 100));
+  const [ colors, setColors ] = useState(GradientGenerator.generate('#E0AF30', '#40AD7E', 100));
   const startIndex = Math.round(colors.length / 2);
   const [ currentColor, setCurrentColor ] = useState(colors[startIndex]);
   const [ sliderPosition, setSliderPosition ] = useState(startIndex);
+  const history = useHistory();
 
   const handleSliderChange = (e) => {
     console.log(`color[${sliderPosition}]: ${currentColor}`);
@@ -41,17 +45,14 @@ export const SentimentCaptureView = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let payload = {
-      entry: {
-        value: sliderPosition,
-        color: currentColor,
-      },
-      note: {
-        content: '',
-      }
-    };
-
-    console.log(payload);
+    api.logEntryForUser({ entry: {
+      sentiment: sliderPosition,
+      color: currentColor.split('#')[1],
+    }})
+      .then(res => {
+        history.push('/');
+      })
+      .catch(err => console.log(err));
   }
 
   return (

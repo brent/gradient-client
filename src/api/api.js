@@ -31,6 +31,18 @@ class API {
     const res = await axios.get(`${BASE_URL}/entries`);
     return res.data;
   }
+
+  async logEntryForUser({ entry, note }) {
+    const { sentiment, color } = entry;
+
+    let params = new URLSearchParams();
+    params.append('sentiment', sentiment);
+    params.append('color', color);
+    if (note) { params.append('note', note) }
+
+    const res = await axios.post(`${BASE_URL}/entries`, params);
+    return res.data;
+  }
 }
 
 export const api = new API();
