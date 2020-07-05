@@ -5,3 +5,7 @@
   height: 100%;
   padding: 1rem;
 }
+
+.appView.borderless {
+  padding: 0;
+}

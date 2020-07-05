@@ -7,12 +7,11 @@ import styles from './styles.module.css';
 
 export const appViewType = {
   fullBleed: 'fullBleed',
+  borderless: 'borderless',
 }
 
-const CoreAppView = ({ children, className, ...props }) => (
-  <div className={ `${styles.appView} ${className}` }
-    { ...props }
-  >
+const CoreAppView = ({ children, ...props }) => (
+  <div { ...props } className={ `${styles.appView} ${props.className}` }>
     { children }
   </div>
 )
@@ -22,6 +21,19 @@ const FullBleedAppView = ({ children, ...props }) => (
     { children }
   </CoreAppView>
 )
+
+const BorderlessAppView = ({ children, ...props }) => {
+  return (
+    <CoreAppView
+      { ...props }
+      className={ `${props.className} ${styles.borderless}` }
+    >
+      <Header />
+      { children }
+      <Footer />
+    </CoreAppView>
+  );
+};
 
 const DefaultAppView = ({ children, ...props }) => (
   <CoreAppView { ...props }>
@@ -37,6 +49,9 @@ export const AppView = ({ type, ...props }) => {
   switch (type) {
     case appViewType.fullBleed:
       view = <FullBleedAppView { ...props } />;
+      break;
+    case appViewType.borderless:
+      view = <BorderlessAppView { ...props } />;
       break;
     default:
       view = <DefaultAppView { ...props } />;
