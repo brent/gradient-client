@@ -1,3 +1,20 @@
-.sentimentListView { }
+.sentimentListView {
+  list-style-type: none;
+}
 
-.sentimentListItem { }
+.sentimentListItem {
+  color: #fff;
+  padding: 2rem 1rem;
+}
+
+.dayOfWeek {
+  font-size: 4rem;
+  font-weight: 900;
+  text-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.15);
+}
+
+.date {
+  font-size: 1rem;
+  font-weight: normal;
+  text-shadow: 0 0.125rem 0.125rem rgba(0,0,0,0.15);
+}

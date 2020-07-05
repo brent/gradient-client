@@ -26,8 +26,8 @@ const SentimentListItem = ({
       className={styles.sentimentListItem}
       style={{ background: `#${color}` }}
     >
-      <h4>{ date }</h4>
-      <h3>{ dayOfWeek }</h3>
+      <h4 className={ styles.date }>{ date }</h4>
+      <h3 className={ styles.dayOfWeek }>{ dayOfWeek }</h3>
     </li>
   );
 }
@@ -52,7 +52,6 @@ const SentimentListView = () => {
       className={ styles.sentimentListView }
     >
       <section className='main'>
-        <h2>SentimentListView</h2>
         { isLoading
             ? <p>Loading...</p>
             : renderEntries(entries)
