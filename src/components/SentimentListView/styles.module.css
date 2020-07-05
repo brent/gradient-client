@@ -1,5 +1,10 @@
+.sentimentListViewWrapper {
+  position: relative;
+}
+
 .sentimentListView {
   list-style-type: none;
+  position: relative;
 }
 
 .sentimentListItem {
@@ -17,4 +22,24 @@
   font-size: 1rem;
   font-weight: normal;
   text-shadow: 0 0.125rem 0.125rem rgba(0,0,0,0.15);
+}
+
+.logSentimentCtaWrapper {
+  box-sizing: border-box;
+  bottom: 1rem;
+  padding: 0 1rem;
+  position: absolute;
+  width: 100%;
+}
+
+.logSentimentCtaBtn {
+  background: #fff;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1);
+  color: #444;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem;
+  width: 100%;
 }

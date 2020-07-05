@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { AppView, appViewType } from '../AppView';
 import { api } from '../../api';
 import moment from 'moment';
@@ -32,9 +33,24 @@ const SentimentListItem = ({
   );
 }
 
+const LogSentimentCTA = ({ className, children, onClick }) => (
+  <div className={className}>
+    <button
+      className={styles.logSentimentCtaBtn}
+      onClick={ onClick }
+    >{ children }</button>
+  </div>
+);
+
+const handleLogSentimentCtaPress = (e, history) => {
+  e.preventDefault();
+  history.push('/create');
+}
+
 const SentimentListView = () => {
   const [entries, setEntries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     setIsLoading(true);
@@ -51,11 +67,17 @@ const SentimentListView = () => {
       type={ appViewType.borderless }
       className={ styles.sentimentListView }
     >
-      <section className='main'>
+      <section className={ styles.sentimentListViewWrapper }>
         { isLoading
             ? <p>Loading...</p>
             : renderEntries(entries)
         }
+        <LogSentimentCTA
+          className={styles.logSentimentCtaWrapper}
+          onClick={ (e) => handleLogSentimentCtaPress(e, history) }
+        >
+          Log my day
+        </LogSentimentCTA>
       </section>
     </AppView>
   );
