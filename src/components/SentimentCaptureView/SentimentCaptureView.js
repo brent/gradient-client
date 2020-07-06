@@ -83,7 +83,7 @@ export const SentimentCaptureView = () => {
 
           <div className={ styles.ctaWrapper }>
             <button
-              className={ `${ styles.cta } ${ styles.ctaSecondary}`}
+              className={ styles.ctaSecondary }
               style={{
                 borderColor: `${currentColor}`,
                 color: `${currentColor}`
@@ -93,14 +93,14 @@ export const SentimentCaptureView = () => {
             Randomize colors
             </button>
             <button
-              className={ `${ styles.cta } ${ styles.ctaPrimary }`}
+              className={ styles.ctaPrimary }
               style={{ backgroundColor: `${currentColor}` }}
               onClick={ handleSubmit }
             >
               Done
             </button>
             <button
-              className={ `${styles.cta } ${styles.closeCta}`}
+              className={ styles.closeCta }
               onClick={ handleClose }
             >
               Close

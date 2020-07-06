@@ -90,7 +90,7 @@ const SentimentListView = () => {
               props: {
                 className: styles.logSentimentCtaWrapper,
                 onClick: (e) => handleLogSentimentCtaPress(e, history),
-                children: <p>Log my day</p>,
+                children: 'Log my day',
               }
             })
         }

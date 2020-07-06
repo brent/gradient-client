@@ -7,3 +7,15 @@ body,
   font-family: 'Heebo', sans-serif;
   height: inherit;
 }
+
+button {
+  background: #eee;
+  border: none;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  outline: none;
+  padding: 1rem;
+}
