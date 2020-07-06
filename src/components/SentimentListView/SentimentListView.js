@@ -6,7 +6,6 @@ import moment from 'moment';
 import styles from './styles.module.css';
 
 const getEntries = async (api) => {
-  const userId = JSON.parse(localStorage.getItem('user')).user_id;
   const entries = await api.getEntriesForUser();
   return entries;
 };
