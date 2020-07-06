@@ -55,6 +55,11 @@ export const SentimentCaptureView = () => {
       .catch(err => console.log(err));
   }
 
+  const handleClose = (e) => {
+    e.preventDefault();
+    history.push('/');
+  }
+
   return (
     <AppView
       className={ styles.sentimentCaptureView }
@@ -67,34 +72,42 @@ export const SentimentCaptureView = () => {
         <p className={ styles.greetingMedText }>How was your day?</p>
       </div>
 
-      <ContentCard className={ styles.contentCard }>
-        <Slider
-          onChange={ handleSliderChange }
-          min='0'
-          max={ colors.length - 1 }
-          step='1'
-        />
+      <div>
+        <ContentCard className={ styles.contentCard }>
+          <Slider
+            onChange={ handleSliderChange }
+            min='0'
+            max={ colors.length - 1 }
+            step='1'
+          />
 
-        <div className={ styles.ctaWrapper }>
-          <button
-            className={ `${ styles.cta } ${ styles.ctaSecondary}`}
-            style={{
-              borderColor: `${currentColor}`,
-              color: `${currentColor}`
-            }}
-            onClick={ handleRandomColorClick }
-          >
-          Randomize colors
-          </button>
-          <button
-            className={ `${ styles.cta } ${ styles.ctaPrimary }`}
-            style={{ backgroundColor: `${currentColor}` }}
-            onClick={ handleSubmit }
-          >
-            Done
-          </button>
-        </div>
-      </ContentCard>
+          <div className={ styles.ctaWrapper }>
+            <button
+              className={ `${ styles.cta } ${ styles.ctaSecondary}`}
+              style={{
+                borderColor: `${currentColor}`,
+                color: `${currentColor}`
+              }}
+              onClick={ handleRandomColorClick }
+            >
+            Randomize colors
+            </button>
+            <button
+              className={ `${ styles.cta } ${ styles.ctaPrimary }`}
+              style={{ backgroundColor: `${currentColor}` }}
+              onClick={ handleSubmit }
+            >
+              Done
+            </button>
+            <button
+              className={ `${styles.cta } ${styles.closeCta}`}
+              onClick={ handleClose }
+            >
+              Close
+            </button>
+          </div>
+        </ContentCard>
+      </div>
     </AppView>
   );
 }
