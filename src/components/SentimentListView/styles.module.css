@@ -1,10 +1,10 @@
-.sentimentListViewWrapper {
-  position: relative;
-}
+.sentimentListViewWrapper { }
 
 .sentimentListView {
+  background: #f9f9f9;
   list-style-type: none;
   position: relative;
+  padding: 0;
 }
 
 .sentimentListItem {

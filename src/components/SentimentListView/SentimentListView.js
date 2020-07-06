@@ -72,7 +72,7 @@ const SentimentListView = () => {
 
   return (
     <AppView
-      type={ appViewType.borderless }
+      type={ appViewType.fullBleed }
       className={ styles.sentimentListView }
     >
       <section className={ styles.sentimentListViewWrapper }>
