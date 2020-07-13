@@ -10,6 +10,7 @@ import {
 import { SentimentCaptureView } from '../SentimentCaptureView';
 import { SentimentListView } from '../SentimentListView';
 import { LoginView } from '../LoginView';
+import { SignUpView } from '../SignUpView';
 import { LogoutView } from '../LogoutView';
 import { PrivateRoute } from '../PrivateRoute';
 
@@ -19,6 +20,7 @@ export const App = () => {
       <Router>
         <Switch>
           <Route path="/login" component={ LoginView } />
+          <Route path="/signup" component={ SignUpView } />
           <PrivateRoute path="/logout" component={ LogoutView } />
           <PrivateRoute path="/create" component={ SentimentCaptureView } />
           <PrivateRoute path="/" component={ SentimentListView } />

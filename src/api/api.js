@@ -27,6 +27,16 @@ class API {
     return res.data;
   }
 
+  async signUpUser({ email, password }) {
+    let params = new URLSearchParams();
+    params.append('email', email);
+    params.append('password', password);
+
+    console.log(params);
+    const res = await axios.post(`${BASE_URL}/auth/signup`, params);
+    return res.data;
+  }
+
   async getEntriesForUser() {
     const res = await axios.get(`${BASE_URL}/entries`);
     return res.data;
