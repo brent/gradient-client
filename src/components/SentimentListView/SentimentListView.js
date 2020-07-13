@@ -77,14 +77,10 @@ const SentimentListView = () => {
       <section className={ styles.sentimentListViewWrapper }>
         { isLoading
             ? <p>Loading...</p>
-            : (
-                renderEntries(entries)
-            )
-
+            : renderEntries(entries)
         }
-        { isLoading
-            ? null
-            : renderLogSentimentCta({
+        { entries.length > 0
+            ? ( renderLogSentimentCta({
               latestEntry: entries[0],
               props: {
                 className: styles.logSentimentCtaWrapper,
@@ -92,6 +88,7 @@ const SentimentListView = () => {
                 children: 'Log my day',
               }
             })
+            ) : null
         }
       </section>
     </AppView>
