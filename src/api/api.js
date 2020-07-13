@@ -18,9 +18,9 @@ class API {
     return res.data;
   }
 
-  async logUserIn({ username, password }) {
+  async logUserIn({ email, password }) {
     let params = new URLSearchParams();
-    params.append('username', username);
+    params.append('email', email);
     params.append('password', password);
 
     const res = await axios.post(`${BASE_URL}/auth/login`, params);

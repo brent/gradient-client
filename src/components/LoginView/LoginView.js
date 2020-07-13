@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 import { Redirect } from 'react-router-dom';
 
 export const LoginView = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return localStorage.getItem('refresh')
@@ -17,8 +17,8 @@ export const LoginView = () => {
     const val = e.target.value;
 
     switch (e.target.name) {
-      case 'username':
-        setUsername(val);
+      case 'email':
+        setEmail(val);
         break;
       case 'password':
         setPassword(val);
@@ -30,7 +30,7 @@ export const LoginView = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await api.logUserIn({ username, password });
+    const res = await api.logUserIn({ email, password });
     localStorage.setItem('user', JSON.stringify(res.user));
     localStorage.setItem('access', res.tokens.access);
     localStorage.setItem('refresh', res.tokens.refresh);
@@ -49,10 +49,10 @@ export const LoginView = () => {
         <form onSubmit={ handleSubmit }>
           <input
             type='text'
-            value={ username }
+            value={ email }
             onChange={ handleFieldChange }
-            name='username'
-            placeholder='Username'
+            name='email'
+            placeholder='Email'
           />
           <input
             type='password'
