@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { api } from '../../api';
 import { AppView, appViewType } from '../AppView';
 import styles from './styles.module.css';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 export const LoginView = () => {
   const [email, setEmail] = useState('');
@@ -64,6 +64,7 @@ export const LoginView = () => {
           <button onClick={ handleSubmit }>
             Log in
           </button>
+          <p>have an account? <Link to="/signup">Sign up</Link></p>
         </form>
       </AppView>
     )
