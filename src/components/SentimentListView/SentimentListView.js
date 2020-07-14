@@ -32,15 +32,7 @@ const SentimentListItem = ({
   );
 }
 
-const renderLogSentimentCta = ({ latestEntry: { created_at }, props}) => {
-  const entryDate = moment(created_at).format('YYYY-MM-DD');
-  const currentDate = moment().format('YYYY-MM-DD');
-  if (entryDate !== currentDate ) {
-    return <LogSentimentCTA { ...props } />
-  }
-}
-
-const LogSentimentCTA = ({ className, children, onClick }) => (
+const LogSentimentCta = ({ className, children, onClick }) => (
   <div className={className}>
     <button
       className={styles.logSentimentCtaBtn}
@@ -69,6 +61,18 @@ const SentimentListView = () => {
       .catch(err => console.log(err));
   }, []);
 
+  const renderLogSentimentCta = (props) => {
+    if (entries.length > 0) {
+      const entryDate = moment(entries[0].created_at).format('YYYY-MM-DD');
+      const currentDate = moment().format('YYYY-MM-DD');
+      if (entryDate !== currentDate ) {
+        return <LogSentimentCta { ...props } />;
+      }
+    } else if (entries.length === 0) {
+      return <LogSentimentCta { ...props } />;
+    } 
+  }
+
   return (
     <AppView
       type={ appViewType.fullBleed }
@@ -77,18 +81,14 @@ const SentimentListView = () => {
       <section className={ styles.sentimentListViewWrapper }>
         { isLoading
             ? <p>Loading...</p>
-            : renderEntries(entries)
+            : renderEntries(entries) 
         }
-        { entries.length > 0
-            ? ( renderLogSentimentCta({
-              latestEntry: entries[0],
-              props: {
-                className: styles.logSentimentCtaWrapper,
-                onClick: (e) => handleLogSentimentCtaPress(e, history),
-                children: 'Log my day',
-              }
-            })
-            ) : null
+        {
+          renderLogSentimentCta({
+            className: styles.logSentimentCtaWrapper,
+            onClick: (e) => handleLogSentimentCtaPress(e, history),
+            children: 'Log my day',
+          })
         }
       </section>
     </AppView>
