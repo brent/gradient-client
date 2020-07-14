@@ -32,7 +32,6 @@ class API {
     params.append('email', email);
     params.append('password', password);
 
-    console.log(params);
     const res = await axios.post(`${BASE_URL}/auth/signup`, params);
     return res.data;
   }
