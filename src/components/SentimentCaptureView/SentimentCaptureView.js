@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
+import moment from 'moment';
 import { AppView, appViewType } from '../AppView';
 import { ContentCard } from '../ContentCard';
 import { Slider } from '../Slider';
-
 import styles from './styles.module.css';
-
 import GradientGenerator from '../../utils/GradientGenerator/GradientGenerator';
-
 import { api } from '../../api';
 
 export const SentimentCaptureView = () => {
@@ -17,6 +14,7 @@ export const SentimentCaptureView = () => {
   const [ currentColor, setCurrentColor ] = useState(colors[startIndex]);
   const [ sliderPosition, setSliderPosition ] = useState(startIndex);
   const history = useHistory();
+  const currentDate = moment().format('dddd, MMMM Do');
 
   const handleSliderChange = (e) => {
     console.log(`color[${sliderPosition}]: ${currentColor}`);
@@ -67,6 +65,7 @@ export const SentimentCaptureView = () => {
       type={ appViewType.fullBleed }
     >
 
+      <p className={ styles.currentDate }>{ currentDate }</p>
       <div className={ styles.greeting }>
         <p className={ styles.greetingBigText }>Hey</p>
         <p className={ styles.greetingMedText }>How was your day?</p>
@@ -84,13 +83,13 @@ export const SentimentCaptureView = () => {
           <div className={ styles.ctaWrapper }>
             <button
               className={ styles.ctaSecondary }
-              style={{
+              style={{ 
                 borderColor: `${currentColor}`,
                 color: `${currentColor}`
               }}
-              onClick={ handleRandomColorClick }
+              onClick={ () => console.log('add note pressed')}
             >
-            Randomize colors
+              Add note
             </button>
             <button
               className={ styles.ctaPrimary }
@@ -99,6 +98,8 @@ export const SentimentCaptureView = () => {
             >
               Done
             </button>
+          </div>
+          <div className={ styles.ctaWrapper }>
             <button
               className={ styles.closeCta }
               onClick={ handleClose }
