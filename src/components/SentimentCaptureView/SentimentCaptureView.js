@@ -22,24 +22,6 @@ export const SentimentCaptureView = () => {
     setSliderPosition(e.target.value);
   }
 
-  const generateRandomHex = () => {
-    const chars = '0123456789ABCDEF';
-    let hex = '#';
-
-    for (let i = 0; i < 6; i++) {
-      hex = hex.concat(chars[Math.floor(Math.random() * 16)]);
-    }
-
-    return hex;
-  }
-
-  const handleRandomColorClick = (e) => {
-    e.preventDefault();
-    const colors = GradientGenerator.generate(generateRandomHex(), generateRandomHex(), 100);
-    setColors(colors);
-    setCurrentColor(colors[sliderPosition]);
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
