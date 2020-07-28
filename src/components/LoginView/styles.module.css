@@ -1,1 +1,38 @@
-.loginView { }
+.loginView {
+  align-content: center;
+}
+
+.logo {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.loginInput {
+  box-sizing: border-box;
+  background: #eee;
+  border: none;
+  display: block;
+  font-size: 1.25rem;
+  min-height: 3rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+.loginSubmit {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.loginSignUpSwitch {
+  text-align: center;
+}
+
+.loginSignUpSwitch a {
+  padding: 0.5rem 0.75rem;
+  background: #eee;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+}

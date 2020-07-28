@@ -45,14 +45,15 @@ export const LoginView = () => {
         type={ appViewType.fullBleed }
         className={ styles.loginView }
       >
-        <h2>LoginView</h2>
+        <h2 className={ styles.logo }>Gradient</h2>
         <form onSubmit={ handleSubmit }>
           <input
-            type='text'
+            type='email'
             value={ email }
             onChange={ handleFieldChange }
             name='email'
             placeholder='Email'
+            className={ styles.loginInput }
           />
           <input
             type='password'
@@ -60,11 +61,15 @@ export const LoginView = () => {
             onChange={ handleFieldChange }
             name='password'
             placeholder='Password'
+            className={ styles.loginInput }
           />
-          <button onClick={ handleSubmit }>
+          <button
+            onClick={ handleSubmit }
+            className={ styles.loginSubmit }
+          >
             Log in
           </button>
-          <p>have an account? <Link to="/signup">Sign up</Link></p>
+          <p className={ styles.loginSignUpSwitch }>Don't have an account? <Link to="/signup">Sign up</Link></p>
         </form>
       </AppView>
     )
