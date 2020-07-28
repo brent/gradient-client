@@ -26,9 +26,9 @@
 
 .logSentimentCtaWrapper {
   box-sizing: border-box;
-  bottom: 1rem;
+  bottom: env(safe-area-inset-bottom, 0);
   padding: 0 1rem;
-  position: absolute;
+  position: fixed;
   width: 100%;
 }
 

@@ -44,6 +44,7 @@
   margin-top: 2rem;
   border-top: 1px solid #eee;
   padding-top: 1rem;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0) / 2);
 }
 
 .ctaWrapper + .ctaWrapper {
