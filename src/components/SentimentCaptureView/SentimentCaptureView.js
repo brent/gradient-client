@@ -9,7 +9,7 @@ import GradientGenerator from '../../utils/GradientGenerator/GradientGenerator';
 import { api } from '../../api';
 
 export const SentimentCaptureView = () => {
-  const [ colors, setColors ] = useState(GradientGenerator.generate('#E0AF30', '#40AD7E', 100));
+  const colors = GradientGenerator.generate('#E0AF30', '#40AD7E', 100);
   const startIndex = Math.round(colors.length / 2);
   const [ currentColor, setCurrentColor ] = useState(colors[startIndex]);
   const [ sliderPosition, setSliderPosition ] = useState(startIndex);
