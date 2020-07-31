@@ -5,7 +5,7 @@ import {
 
 class API {
   async testRequest() {
-    return await axios.get(BASE_URL);
+    return await axios.get(`${BASE_URL}`);
   }
 
   async getAllUsers() {

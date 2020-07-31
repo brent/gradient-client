@@ -1,29 +1,13 @@
 import axios from 'axios';
 
-const host = ((env) => {
-  switch(env) {
-    case 'development':
-      return 'localhost';
-    case 'production':
-      return 'gradientapp.co';
-    default:
-      throw new Error('no environment specified');
-  }
-})(process.env.NODE_ENV);
-
-const port = '3000';
-const apiRoute = 'api/v1';
-const BASE_URL = ((host, port, apiRoute) => {
-  if (!host || !apiRoute) { throw new Error('BASE_URL not set') }
-  return (port !== null || port !== undefined)
-    ? `http://${host}:${port}/${apiRoute}`
-    : `http://${host}/${apiRoute}`;
-})(host, port, apiRoute);
-
 const gvAxios = axios.create();
+
+const BASE_URL = 'api/v1';
 
 gvAxios.interceptors.request.use((request) => {
     const token = localStorage.getItem('access');
+
+    console.log('request', request);
 
     if (token) {
       request.headers['Authorization'] = `Bearer ${token}`;
@@ -33,7 +17,6 @@ gvAxios.interceptors.request.use((request) => {
       request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
     }
 
-    request.baseURL = BASE_URL;
     return request;
   }, (error) => {
     return Promise.reject(error);
@@ -44,6 +27,7 @@ gvAxios.interceptors.response.use((response) => {
     return response;
   },
   (error) => {
+    console.log('error', error);
     const resCode = error.response.status;
     const resErr = error.response.data.error;
     let originalReq = error.config;
