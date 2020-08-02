@@ -6,9 +6,6 @@ const BASE_URL = 'api/v1';
 
 gvAxios.interceptors.request.use((request) => {
     const token = localStorage.getItem('access');
-
-    console.log('request', request);
-
     if (token) {
       request.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -27,12 +24,11 @@ gvAxios.interceptors.response.use((response) => {
     return response;
   },
   (error) => {
-    console.log('error', error);
     const resCode = error.response.status;
     const resErr = error.response.data.error;
     let originalReq = error.config;
 
-    if (resCode === 403 && resErr === 'jwt expired') {
+    if (resCode === 403) {
       const access = localStorage.getItem('access');
       const refreshToken = localStorage.getItem('refresh');
 
@@ -50,6 +46,11 @@ gvAxios.interceptors.response.use((response) => {
             resolve(axios(originalReq));
           })
           .catch(err => {
+            if (err.response.data.error === 'Refresh token not found') {
+              localStorage.clear();
+              window.location.assign('/');
+              reject(new Error('invalid token'));
+            }
             reject(new Error('could not refresh token'));
           });
       });
