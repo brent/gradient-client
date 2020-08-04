@@ -25,7 +25,6 @@ gvAxios.interceptors.response.use((response) => {
   },
   (error) => {
     const resCode = error.response.status;
-    const resErr = error.response.data.error;
     let originalReq = error.config;
 
     if (resCode === 403) {
