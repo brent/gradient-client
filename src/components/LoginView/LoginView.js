@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { api } from '../../api';
+import * as api from '../../api';
 import { AppView, appViewType } from '../AppView';
 import styles from './styles.module.css';
 import { Link, Redirect } from 'react-router-dom';

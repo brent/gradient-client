@@ -6,7 +6,7 @@ import { ContentCard } from '../ContentCard';
 import { Slider } from '../Slider';
 import styles from './styles.module.css';
 import GradientGenerator from '../../utils/GradientGenerator/GradientGenerator';
-import { api } from '../../api';
+import * as api from '../../api';
 
 export const SentimentCaptureView = () => {
   const colors = GradientGenerator.generate('#E0AF30', '#40AD7E', 100);

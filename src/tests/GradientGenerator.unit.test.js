@@ -1,4 +1,4 @@
-import GradientGenerator from './GradientGenerator';
+import GradientGenerator from '../utils/GradientGenerator/GradientGenerator';
 
 describe('GradientGenerator', () => {
   test('it returns an array', () => {
@@ -38,7 +38,9 @@ describe('hexToRgb', () => {
   const testHex = 'a1b2c3';
 
   test('it only takes full character hex strings', () => {
+    expect(GradientGenerator._hexToRgb('a1')).toBeNull();
     expect(GradientGenerator._hexToRgb('a1b2')).toBeNull();
+    expect(GradientGenerator._hexToRgb('a1b2c')).toBeNull();
   });
 
   test('returns an object', () => {

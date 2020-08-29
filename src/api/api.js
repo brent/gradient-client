@@ -3,55 +3,57 @@ import {
   BASE_URL,
 } from './axiosConfig';
 
-class API {
-  async testRequest() {
-    return await axios.get(`${BASE_URL}`);
-  }
-
-  async getAllUsers() {
-    const res = await axios.get(`${BASE_URL}/users`);
-    return res.data;
-  }
-
-  async getUser({ userId }) {
-    const res = await axios.get(`${BASE_URL}/users/${userId}`);
-    return res.data;
-  }
-
-  async logUserIn({ email, password }) {
-    let params = new URLSearchParams();
-    params.append('email', email);
-    params.append('password', password);
-
-    const res = await axios.post(`${BASE_URL}/auth/login`, params);
-    return res.data;
-  }
-
-  async signUpUser({ email, password }) {
-    let params = new URLSearchParams();
-    params.append('email', email);
-    params.append('password', password);
-
-    const res = await axios.post(`${BASE_URL}/auth/signup`, params);
-    return res.data;
-  }
-
-  async getEntriesForUser() {
-    const res = await axios.get(`${BASE_URL}/entries`);
-    return res.data;
-  }
-
-  async logEntryForUser({ entry, note }) {
-    const { sentiment, color } = entry;
-
-    let params = new URLSearchParams();
-    params.append('sentiment', sentiment);
-    params.append('color', color);
-    if (note) { params.append('note', note) }
-
-    const res = await axios.post(`${BASE_URL}/entries`, params);
-    return res.data;
-  }
+async function testRequest() {
+  return await axios.get(`${BASE_URL}`);
 }
 
-export const api = new API();
+async function getAllUsers() {
+  const res = await axios.get(`${BASE_URL}/users`);
+  return res.data;
+}
+
+async function getUser({ userId }) {
+  const res = await axios.get(`${BASE_URL}/users/${userId}`);
+  return res.data;
+}
+
+async function logUserIn({ email, password }) {
+  const params = setPostBody({ email, password });
+  const res = await axios.post(`${BASE_URL}/auth/login`, params);
+  return res.data;
+}
+
+async function signUpUser({ email, password }) {
+  const params = setPostBody({ email, password });
+  const res = await axios.post(`${BASE_URL}/auth/signup`, params);
+  return res.data;
+}
+
+async function getEntriesForUser() {
+  const res = await axios.get(`${BASE_URL}/entries`);
+  return res.data;
+}
+
+async function logEntryForUser({ entry, note }) {
+  const { sentiment, color } = entry;
+  const params = setPostBody({ sentiment, color, note });
+  const res = await axios.post(`${BASE_URL}/entries`, params);
+  return res.data;
+}
+
+function setPostBody(params) {
+  let urlSearchParams = new URLSearchParams();
+  const paramEntries = Object.entries(params);
+  paramEntries.forEach(entry => urlSearchParams.append(entry[0], entry[1]));
+  return urlSearchParams;
+}
+
+export {
+  testRequest,
+  getAllUsers,
+  getUser,
+  logUserIn,
+  signUpUser,
+  getEntriesForUser,
+  logEntryForUser,
+}
