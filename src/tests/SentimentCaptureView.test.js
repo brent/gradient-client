@@ -2,7 +2,6 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 
-import * as api from '../api';
 import { SentimentCaptureView } from '../components/SentimentCaptureView';
 
 describe('SentimentCaptureView', () => {
