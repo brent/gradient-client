@@ -18,11 +18,17 @@ describe('NoteComposer', () => {
     expect(container.querySelector('.noteComposer textarea').placeholder).toBe(placeholder);
   });
 
-  it('accepts text input' , () => {
-    const { container } = render(<NoteComposer />);
-    const noteComposer = container.querySelector('.noteComposer textarea');
-    userEvent.type(noteComposer, 'test');
-    expect(noteComposer).toHaveValue('test');
+  it('updates a given value on change' , () => {
+    let value = '';
+    const setValue = (newVal) => value = newVal;
+    const { container } = render(
+      <NoteComposer value={ value } onChange={ setValue } />
+    );
+    const noteComposer = container.querySelector('.noteComposer');
+    const noteComposerTextarea = noteComposer.querySelector('textarea');
+    expect(noteComposerTextarea.value).toBe('');
+    userEvent.type(noteComposerTextarea, 'end');
+    expect(value).toBe('end');
   });
 
   it('uses provided value', () => {

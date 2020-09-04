@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function NoteComposer({ value }) {
+function NoteComposer({ value, onChange }) {
   const placeholder = 'Jot down your thoughts';
-  const initialNote = value ? value : '';
-  const [note, setNote] = useState(initialNote);
 
   return(
     <div className='noteComposer'>
       <textarea 
         placeholder = { placeholder }
-        onChange = { (e) => setNote(e.target.value) }
-        value = { note }
+        onChange = { (e) => onChange(e.target.value) }
+        value = { value }
       />
     </div>
   );
