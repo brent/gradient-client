@@ -1,6 +1,7 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
+import userEvent from '@testing-library/user-event';
 
 import { SentimentCaptureView } from '../components/SentimentCaptureView';
 
@@ -53,5 +54,11 @@ describe('SentimentCaptureView', () => {
 
   it('should render the close button', () => {
     expect(container.querySelector('.closeCta')).toBeTruthy();
+  });
+
+  it('should show the noteComposer', () => {
+    const addNoteCta = container.querySelector('.ctaSecondary');
+    userEvent.click(addNoteCta);
+    expect(container.querySelector('.noteComposer')).toBeTruthy();
   });
 });
