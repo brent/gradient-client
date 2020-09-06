@@ -28,10 +28,13 @@ export const SentimentCaptureView = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    api.logEntryForUser({ entry: {
-      sentiment: sliderPosition,
-      color: currentColor.split('#')[1],
-    }})
+    api.logEntryForUser({
+      entry: {
+        sentiment: sliderPosition,
+        color: currentColor.split('#')[1],
+      },
+      noteContent: noteContent,
+    })
       .then(res => {
         history.push('/');
       })
