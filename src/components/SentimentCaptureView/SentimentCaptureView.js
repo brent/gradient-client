@@ -47,9 +47,9 @@ export const SentimentCaptureView = () => {
     setNoteContent(value);
   }
 
-  const handleNoteDone = (e) => {
+  const toggleNoteVisibility = (e) => {
     e.preventDefault();
-    setNoteVisibility(false);
+    setNoteVisibility(!noteVisibility);
   }
 
   return (
@@ -60,12 +60,16 @@ export const SentimentCaptureView = () => {
     >
 
       <p className={ styles.currentDate }>{ currentDate }</p>
-      <div className={ styles.greeting }>
-        <p className={ styles.greetingBigText }>Hey</p>
-        <p className={ styles.greetingMedText }>How was your day?</p>
-      </div>
+      {
+        !noteVisibility ? (
+          <div className={ styles.greeting }>
+            <p className={ styles.greetingBigText }>Hey</p>
+            <p className={ styles.greetingMedText }>How was your day?</p>
+          </div>
+        ) : null
+      }
 
-      <ContentCard className={ styles.contentCard }>
+      <ContentCard className={ !noteVisibility ? styles.contentCard : styles.contentCard__noteVisible }>
         <Slider
           onChange={ handleSliderChange }
           min='0'
@@ -83,7 +87,7 @@ export const SentimentCaptureView = () => {
                     borderColor: `${currentColor}`,
                     color: `${currentColor}`
                   }}
-                  onClick={ () => setNoteVisibility(!noteVisibility) }
+                  onClick={ toggleNoteVisibility }
                 >
                   { noteContent === '' ? 'Add note' : 'Edit note' }
                 </button>
@@ -110,11 +114,11 @@ export const SentimentCaptureView = () => {
                 value={ noteContent }
                 onChange= { handleNoteComposerOnChange }
               />
-              <div className={ styles.ctaWrapper }>
+              <div className={ `${styles.ctaWrapper} ${styles.ctaWrapper__noteVisible}` }>
                 <button
                   className={ styles.ctaPrimary }
                   style={{ backgroundColor: `${currentColor}` }}
-                  onClick={ handleNoteDone }
+                  onClick={ toggleNoteVisibility }
                 >
                   Done
                 </button>
