@@ -10,12 +10,19 @@ const getEntries = async (api) => {
   return entries;
 };
 
-const renderEntries = (entries) => {
-  return entries.map(entry => <SentimentListItem key={entry.id} entry={entry} />);
+const renderEntries = (entries, onClick) => {
+  return entries.map(entry => (
+    <SentimentListItem
+      key={entry.id}
+      entry={entry}
+      onClick={(e) => onClick(e, entry)}
+    />
+  ));
 };
 
 const SentimentListItem = ({
-  entry: { id, color, sentiment, created_at }
+  entry: { id, color, sentiment, created_at },
+  onClick: onClick,
 }) => {
   const dayOfWeek = moment(created_at).format('dddd');
   const date = moment(created_at).format('MMM Do, YYYY');
@@ -25,12 +32,14 @@ const SentimentListItem = ({
       key={id}
       className={styles.sentimentListItem}
       style={{ background: `#${color}` }}
+      onClick={ onClick }
     >
       <h4 className={ styles.date }>{ date }</h4>
       <h3 className={ styles.dayOfWeek }>{ dayOfWeek }</h3>
     </li>
   );
 }
+
 
 const LogSentimentCta = ({ className, children, onClick }) => (
   <div className={className}>
@@ -61,6 +70,14 @@ const SentimentListView = () => {
       .catch(err => console.log(err));
   }, []);
 
+  const handleEntryPress = (e, entry) => {
+    e.preventDefault();
+    history.push({
+      pathname: `/entry/${entry.id}`,
+      state: { entry: entry }
+    });
+  };
+
   const renderLogSentimentCta = (props) => {
     if (entries.length > 0) {
       const entryDate = moment(entries[0].created_at).format('YYYY-MM-DD');
@@ -81,7 +98,7 @@ const SentimentListView = () => {
       <section className={ styles.sentimentListViewWrapper }>
         { isLoading
             ? <p>Loading...</p>
-            : renderEntries(entries) 
+            : renderEntries(entries, handleEntryPress)
         }
         {
           renderLogSentimentCta({
