@@ -11,6 +11,11 @@ export const EntryDetailView = (props) => {
   const dayOfWeek = moment(entry.created_at).format('dddd');
   const date = moment(entry.created_at).format('MMM Do, YYYY');
 
+  const handleCloseBtnPress = (e) => {
+    e.preventDefault();
+    history.goBack();
+  }
+
   return (
     <AppView
       className={ styles.entryDetailView }
@@ -34,6 +39,7 @@ export const EntryDetailView = (props) => {
         <button
           className={ styles.closeBtn }
           style={{ backgroundColor: `#${entry.color}` }}
+          onClick={ handleCloseBtnPress }
         >
           Close
         </button>
