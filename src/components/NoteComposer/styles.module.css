@@ -1,0 +1,29 @@
+.noteComposer,
+.noteComposerEntry {
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  color: #777;
+  font-family: inherit;
+  font-size: 1.125rem;
+  width: 100%;
+}
+
+.noteComposer {
+  border: 0.125rem solid #eee;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.noteComposerEntry {
+  border: none;
+  height: 100%;
+  outline: none;
+  resize: none;
+  padding: 1rem;
+}
+
+.noteComposerEntry::placeholder {
+  color: #bbb;
+}

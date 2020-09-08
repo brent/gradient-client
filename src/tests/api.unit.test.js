@@ -166,7 +166,7 @@ describe('api', () => {
           color: entryData.color,
           sentiment: entryData.sentiment,
         },
-        note: entryData.note_content,
+        noteContent: entryData.note_content,
       });
       logEntryForUserCallValues = axios.post.mock.calls[axios.post.mock.calls.length - 1];
     });
@@ -178,6 +178,7 @@ describe('api', () => {
     it('should call axios.post() with correct params', () => {
       expect(logEntryForUserCallValues[1].get('color')).toBe(entryData.color);
       expect(logEntryForUserCallValues[1].get('sentiment')).toBe(entryData.sentiment.toString());
+      expect(logEntryForUserCallValues[1].get('noteContent')).toBe(entryData.note_content);
     });
   });
 });
