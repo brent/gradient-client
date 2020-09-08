@@ -1,0 +1,45 @@
+.entryDetailView {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.entryMetadata {
+  display: flex;
+  color: #fff;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.entryDate {
+  font-size: 1.25rem;
+}
+
+.entryDay {
+  font-size: 4rem;
+  font-weight: 900;
+}
+
+.entryColor {
+  font-size: 1.25rem;
+}
+
+.noteContentWrapper {
+  border-radius: 1rem 1rem 0 0;
+}
+
+.noteContent { 
+  color: #777;
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+  max-height: 66vh;
+  min-height: 2rem;
+  overflow: scroll;
+}
+
+.closeBtn {
+  color: #fff;
+  width: 100%;
+}
