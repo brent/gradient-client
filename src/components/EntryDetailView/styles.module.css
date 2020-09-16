@@ -36,7 +36,8 @@
   margin-bottom: 1rem;
   max-height: 66vh;
   min-height: 2rem;
-  overflow: scroll;
+  overflow: auto;
+  white-space: pre-wrap;
 }
 
 .closeBtn {

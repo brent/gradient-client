@@ -30,10 +30,9 @@ export const EntryDetailView = (props) => {
       <ContentCard className={ styles.noteContentWrapper }>
         {
           entry.note_content ? (
-            <p
-              className={ styles.noteContent }
-              dangerouslySetInnerHTML={{ __html: entry.note_content }}
-            />
+            <p className={ styles.noteContent } >
+              { entry.note_content }
+            </p>
           ) : null
         }
         <button
