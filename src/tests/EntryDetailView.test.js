@@ -10,9 +10,18 @@ describe('EntryDetailView', () => {
     const entry = {
       color: 777777,
       created_at: '202009052134',
-      noteContent: 'test note',
+      note_content: 'test note\nsecond line',
     }
-    container = render(<EntryDetailView entry={entry} />).container;
+
+    const props = {
+      location: {
+        state: {
+          entry,
+        }
+      }
+    }
+
+    container = render(<EntryDetailView { ...props } />).container;
   });
 
   it('renders', () => {
@@ -36,7 +45,16 @@ describe('EntryDetailView', () => {
       color: 555555,
       created_at: '202009052135',
     };
-    const container2 = render(<EntryDetailView entry={entryWithoutNote} />).container;
+
+    const props = {
+      location: {
+        state: {
+          entry: entryWithoutNote,
+        }
+      }
+    }
+
+    const container2 = render(<EntryDetailView { ...props } />).container;
     expect(container2.querySelector('.noteContent')).not.toBeTruthy();
   });
 
