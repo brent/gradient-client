@@ -8,8 +8,8 @@ import moment from 'moment';
 export const EntryDetailView = (props) => {
   const history = useHistory();
   const entry = props.location.state.entry;
-  const dayOfWeek = moment(entry.created_at).format('dddd');
-  const date = moment(entry.created_at).format('MMM Do, YYYY');
+  const dayOfWeek = moment(entry.date).format('dddd');
+  const date = moment(entry.date).format('MMM Do, YYYY');
 
   const handleCloseBtnPress = (e) => {
     e.preventDefault();

@@ -21,11 +21,11 @@ const renderEntries = (entries, onClick) => {
 };
 
 const SentimentListItem = ({
-  entry: { id, color, sentiment, created_at },
+  entry: { id, color, sentiment, date },
   onClick: onClick,
 }) => {
-  const dayOfWeek = moment(created_at).format('dddd');
-  const date = moment(created_at).format('MMM Do, YYYY');
+  const dayOfWeek = moment(date).format('dddd');
+  const entryDate = moment(date).format('MMM Do, YYYY');
 
   return (
     <li
@@ -34,7 +34,7 @@ const SentimentListItem = ({
       style={{ background: `#${color}` }}
       onClick={ onClick }
     >
-      <h4 className={ styles.date }>{ date }</h4>
+      <h4 className={ styles.entryDate }>{ entryDate }</h4>
       <h3 className={ styles.dayOfWeek }>{ dayOfWeek }</h3>
     </li>
   );
@@ -78,6 +78,7 @@ const SentimentListView = () => {
     });
   };
 
+  // TODO: Fix rendering of button for buffered times
   const renderLogSentimentCta = (props) => {
     if (entries.length > 0) {
       const entryDate = moment(entries[0].date).format('YYYY-MM-DD');
