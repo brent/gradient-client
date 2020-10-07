@@ -35,8 +35,8 @@ async function getEntriesForUser() {
 }
 
 async function logEntryForUser({ entry, noteContent }) {
-  const { sentiment, color } = entry;
-  const params = setPostBody({ sentiment, color, noteContent });
+  const { sentiment, color, date } = entry;
+  const params = setPostBody({ sentiment, color, noteContent, date });
   const res = await axios.post(`${BASE_URL}/entries`, params);
   return res.data;
 }

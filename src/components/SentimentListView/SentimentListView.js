@@ -80,9 +80,9 @@ const SentimentListView = () => {
 
   const renderLogSentimentCta = (props) => {
     if (entries.length > 0) {
-      const entryDate = moment(entries[0].created_at).format('YYYY-MM-DD');
+      const entryDate = moment(entries[0].date).format('YYYY-MM-DD');
       const currentDate = moment().format('YYYY-MM-DD');
-      if (entryDate !== currentDate ) {
+      if (entryDate !== currentDate && moment().hour() > 3) {
         return <LogSentimentCta { ...props } />;
       }
     } else if (entries.length === 0) {

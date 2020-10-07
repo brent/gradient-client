@@ -17,7 +17,21 @@ export const SentimentCaptureView = () => {
   const [noteVisibility, setNoteVisibility] = useState(false);
   const [noteContent, setNoteContent] = useState('');
   const history = useHistory();
-  const currentDate = moment().format('dddd, MMMM Do');
+
+  const entryDate = ((date) => {
+    const hour = date.get('hour');
+    if (hour < 4) {
+      return date.set({
+        'date': date.get('date') - 1,
+        'hour': 10,
+        'minute': 0,
+        'second': 0,
+        'millisecond': 0,
+      });
+    }
+    return date;
+  })(moment());
+  const currentDate = entryDate.format('dddd, MMMM Do');
 
   const handleSliderChange = (e) => {
     console.log(`color[${sliderPosition}]: ${currentColor}`);
@@ -32,6 +46,7 @@ export const SentimentCaptureView = () => {
       entry: {
         sentiment: sliderPosition,
         color: currentColor.split('#')[1],
+        date: entryDate.format('YYYY-MM-DD HH:mm:ss'), // 2020-10-08 22:07:28
       },
       noteContent: noteContent,
     })
