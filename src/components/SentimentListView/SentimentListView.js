@@ -4,6 +4,7 @@ import { AppView, appViewType } from '../AppView';
 import * as api from '../../api';
 import moment from 'moment';
 import styles from './styles.module.css';
+import { SentimentListItem } from '../SentimentListItem';
 
 const getEntries = async (api) => {
   const entries = await api.getEntriesForUser();
@@ -19,27 +20,6 @@ const renderEntries = (entries, onClick) => {
     />
   ));
 };
-
-const SentimentListItem = ({
-  entry: { id, color, sentiment, date },
-  onClick: onClick,
-}) => {
-  const dayOfWeek = moment(date).format('dddd');
-  const entryDate = moment(date).format('MMM Do, YYYY');
-
-  return (
-    <li
-      key={id}
-      className={styles.sentimentListItem}
-      style={{ background: `#${color}` }}
-      onClick={ onClick }
-    >
-      <h4 className={ styles.entryDate }>{ entryDate }</h4>
-      <h3 className={ styles.dayOfWeek }>{ dayOfWeek }</h3>
-    </li>
-  );
-}
-
 
 const LogSentimentCta = ({ className, children, onClick }) => (
   <div className={className}>
