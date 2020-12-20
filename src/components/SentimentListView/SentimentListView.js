@@ -7,26 +7,6 @@ import * as api from '../../api';
 import moment from 'moment';
 import styles from './styles.module.css';
 
-const getEntries = async (api) => {
-  const entries = await api.getEntriesForUser();
-  return entries;
-};
-
-const renderEntries = (entries, onClick) => {
-  return entries.map(entry => (
-    <SentimentListItem
-      key={entry.id}
-      entry={entry}
-      onClick={(e) => onClick(e, entry)}
-    />
-  ));
-};
-
-const handleLogSentimentCtaPress = (e, history) => {
-  e.preventDefault();
-  history.push('/create');
-}
-
 const SentimentListView = () => {
   const [entries, setEntries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -41,6 +21,26 @@ const SentimentListView = () => {
       })
       .catch(err => console.log(err));
   }, []);
+
+  const getEntries = async (api) => {
+    const entries = await api.getEntriesForUser();
+    return entries;
+  };
+
+  const renderEntries = (entries, onClick) => {
+    return entries.map(entry => (
+      <SentimentListItem
+        key={entry.id}
+        entry={entry}
+        onClick={(e) => onClick(e, entry)}
+      />
+    ));
+  };
+
+  const handleLogSentimentCtaPress = (e, history) => {
+    e.preventDefault();
+    history.push('/create');
+  }
 
   const handleEntryPress = (e, entry) => {
     e.preventDefault();
