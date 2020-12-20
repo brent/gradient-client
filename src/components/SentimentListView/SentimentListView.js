@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppView, appViewType } from '../AppView';
+import { SentimentListItem } from '../SentimentListItem';
+import { LogSentimentCta } from '../LogSentimentCta';
 import * as api from '../../api';
 import moment from 'moment';
 import styles from './styles.module.css';
-import { SentimentListItem } from '../SentimentListItem';
 
 const getEntries = async (api) => {
   const entries = await api.getEntriesForUser();
@@ -20,15 +21,6 @@ const renderEntries = (entries, onClick) => {
     />
   ));
 };
-
-const LogSentimentCta = ({ className, children, onClick }) => (
-  <div className={className}>
-    <button
-      className={styles.logSentimentCtaBtn}
-      onClick={ onClick }
-    >{ children }</button>
-  </div>
-);
 
 const handleLogSentimentCtaPress = (e, history) => {
   e.preventDefault();
