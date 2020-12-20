@@ -13,6 +13,7 @@ jest.mock('../api', () => ({
       user_id: 1,
       color: "58af74",
       sentiment: 68,
+      date: "2020-08-30T03:07:03.490Z",
       created_at: "2020-08-30T03:07:03.490Z",
       updated_at: "2020-08-30T03:07:03.490Z",
       note_id: null,
@@ -23,6 +24,7 @@ jest.mock('../api', () => ({
       user_id: 1,
       color: "58af74",
       sentiment: 68,
+      date: "2020-08-29T02:24:23.464Z",
       created_at: "2020-08-29T02:24:23.464Z",
       updated_at: "2020-08-29T02:24:23.464Z",
       note_id: null,
@@ -62,6 +64,5 @@ describe('SentimentListView', () => {
   it('renders the log entry CTA', () => {
     const logSentimentCtaBtn = container.querySelector('.logSentimentCtaBtn');
     expect(logSentimentCtaBtn).not.toBeNull();
-    expect(logSentimentCtaBtn.textContent).toContain('Log my day');
   });
 });

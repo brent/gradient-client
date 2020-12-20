@@ -78,17 +78,23 @@ const SentimentListView = () => {
     });
   };
 
-  // TODO: Fix rendering of button for buffered times
   const renderLogSentimentCta = (props) => {
     if (entries.length > 0) {
-      const entryDate = moment(entries[0].date).format('YYYY-MM-DD');
-      const currentDate = moment().format('YYYY-MM-DD');
-      if (entryDate !== currentDate && moment().hour() > 3) {
+      const lastEntryCreatedDate = moment(entries[0].created_at);
+      const today = moment().startOf('day');
+
+      if (lastEntryCreatedDate.date() < today.date()) {
         return <LogSentimentCta { ...props } />;
       }
-    } else if (entries.length === 0) {
-      return <LogSentimentCta { ...props } />;
-    } 
+
+      if (lastEntryCreatedDate.date() === today.date()) {
+        if (moment().diff(today, 'hours', true) > 4) {
+          return <LogSentimentCta { ...props } />;
+        } 
+      }
+    }
+
+    return <LogSentimentCta { ...props } />;
   }
 
   return (
