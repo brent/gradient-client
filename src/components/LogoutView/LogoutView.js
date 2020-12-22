@@ -16,9 +16,12 @@ export const LogoutView = () => {
       type={ appViewType.fullBleed }
       className={ styles.logoutView }
     >
-      <h2>LogoutView</h2>
+      <h2 className={ styles.logo }>Gradient</h2>
       <form onSubmit={ handleSubmit }>
-        <button onClick={ handleSubmit }>
+        <button
+          onClick={ handleSubmit }
+          className={ styles.logoutSubmit }
+        >
           Log out
         </button>
       </form>

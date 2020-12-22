@@ -1,5 +1,8 @@
 .loginView {
   align-content: center;
+  display: grid;
+  grid-template-rows: 10% auto 10%;
+  min-height: 100vh;
 }
 
 .logo {

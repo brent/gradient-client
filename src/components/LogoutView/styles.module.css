@@ -1,1 +1,15 @@
-.logoutView { }
+.logo {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.logoutView {
+  align-content: center;
+  display: grid;
+  grid-template-rows: 10% auto 10%;
+  min-height: 100vh;
+}
+
+.logoutSubmit {
+  width: 100%;
+}
