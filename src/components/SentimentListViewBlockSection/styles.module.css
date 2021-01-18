@@ -1,0 +1,19 @@
+.sentimentListViewBlockSection {
+  margin: 0 1rem;
+}
+
+.sentimentListViewBlockSection li {
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.sentimentListViewBlockSection li:last-child {
+  margin-bottom: 0;
+}
+
+.sectionHeading {
+  color: #aaa;
+  font-size: 1rem;
+  font-weight: normal;
+  margin: 0.5rem 0 1rem 0.5rem;
+}

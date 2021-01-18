@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppView, appViewType } from '../AppView';
 import { SentimentListItem } from '../SentimentListItem';
+import { SentimentListViewBlockSection } from '../SentimentListViewBlockSection';
 import { LogSentimentCta } from '../LogSentimentCta';
 import * as api from '../../api';
 import moment from 'moment';
@@ -13,10 +14,56 @@ const SentimentListView = () => {
   const history = useHistory();
 
   useEffect(() => {
+    const splitEntries = (entries) => {
+      let lastSunday = getMostRecentSunday(entries[0].date);
+      let entriesByWeek = [];
+      let week = [];
+
+      entries.forEach((entry) => {
+        if (!moment(entry.date).isSameOrAfter(lastSunday, 'day')) {
+          entriesByWeek.push(week);
+          week = [];
+          lastSunday = getMostRecentSunday(entry.date);
+        }
+
+        week.push(entry);
+      });
+
+      entriesByWeek.push(week);
+      const months = entriesByMonth(entriesByWeek);
+      let entriesThisWeek = [];
+      let entriesLastWeek = [];
+      let entriesThisMonth = [];
+
+      const mostRecentMonth = months.shift();
+      if (moment().week() - moment(mostRecentMonth.entries[0].date).week() > 0) {
+        const currentWeek = moment().week();
+        mostRecentMonth.entries.forEach((entry) => {
+          if (currentWeek - moment(entry.date).week() === 0) {
+            entriesThisWeek.push(entry);
+          } else if (currentWeek - moment(entry.date).week() === 1) {
+            entriesLastWeek.push(entry);
+          } else {
+            entriesThisMonth.push(entry);
+          }
+        });
+      } else {
+        months.unshift(mostRecentMonth);
+      }
+
+      return [
+        { range: 'this week', entries: entriesThisWeek },
+        { range: 'last week', entries: entriesLastWeek },
+        { range: 'this month', entries: entriesThisMonth },
+        ...months,
+      ];
+    };
+
     setIsLoading(true);
     getEntries(api)
       .then(entries => {
-        setEntries(entries);
+        const entriesByBlock = splitEntries(entries);
+        setEntries(entriesByBlock);
         setIsLoading(false);
       })
       .catch(err => console.log(err));
@@ -25,6 +72,59 @@ const SentimentListView = () => {
   const getEntries = async (api) => {
     const entries = await api.getEntriesForUser();
     return entries;
+  };
+
+  const getMostRecentSunday = (date) => {
+    const momentDate = moment(date);
+    const lastSunday = momentDate.day(0);
+    return lastSunday;
+  };
+
+
+  const entriesByMonth = (entriesByWeek) => {
+    let months = [];
+    let currentMonth = { range: '', monthNum: null, entries: [] };
+    let monthName;
+    let monthNum;
+
+    entriesByWeek.forEach((week) => {
+      if (currentMonth.entries.length > 0) {
+        if (moment(currentMonth.entries[0].date).month() === moment(week[0].date).month()) {
+          currentMonth.entries = [...currentMonth.entries, ...week];
+        } else {
+          months.push(currentMonth);
+          monthName = moment(week[0].date).format('MMMM');
+          monthNum = moment(week[0].date).month() + 1;
+          currentMonth = { range: monthName, monthNum: monthNum, entries: week };
+        }
+      } else {
+        monthName = moment(week[0].date).format('MMMM');
+        monthNum = moment(week[0].date).month() + 1;
+        currentMonth.range = monthName;
+        currentMonth.monthNum = monthNum;
+        currentMonth.entries = week;
+      }
+    });
+
+    return months;
+  };
+
+  const renderEntryBlocks = (entries) => {
+    return entries.map((entriesBlock) => {
+      if (entriesBlock.entries.length > 0) {
+        return (
+          <SentimentListViewBlockSection
+            title={ entriesBlock.range }
+            key={ entries.indexOf(entriesBlock) }
+          >
+            { isLoading
+                ? <p>Loading...</p>
+                : renderEntries(entriesBlock.entries, handleEntryPress)
+            }
+          </SentimentListViewBlockSection>
+        )
+      }
+    });
   };
 
   const renderEntries = (entries, onClick) => {
@@ -74,19 +174,14 @@ const SentimentListView = () => {
       type={ appViewType.fullBleed }
       className={ styles.sentimentListView }
     >
-      <section className={ styles.sentimentListViewWrapper }>
-        { isLoading
-            ? <p>Loading...</p>
-            : renderEntries(entries, handleEntryPress)
-        }
-        {
-          renderLogSentimentCta({
-            className: styles.logSentimentCtaWrapper,
-            onClick: (e) => handleLogSentimentCtaPress(e, history),
-            children: 'Log my day',
-          })
-        }
-      </section>
+      { renderEntryBlocks(entries) }
+      {
+        renderLogSentimentCta({
+          className: styles.logSentimentCtaWrapper,
+          onClick: (e) => handleLogSentimentCtaPress(e, history),
+          children: 'Log my day',
+        })
+      }
     </AppView>
   );
 }

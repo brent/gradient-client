@@ -55,14 +55,20 @@ describe('SentimentListView', () => {
   });
 
   it('renders entries', () => {
-    const sentimentListViewWrapper = container.querySelector('.sentimentListViewWrapper');
-    const sentimentListItems = sentimentListViewWrapper.querySelector('.sentimentListItem').children;
-    expect(sentimentListViewWrapper).not.toBeNull();
+    const sentimentListView= container.querySelector('.sentimentListView');
+    const sentimentListItems = sentimentListView.querySelector('.sentimentListItem').children;
+    expect(sentimentListView).not.toBeNull();
     expect(sentimentListItems.length).toBe(2);
   });
 
   it('renders the log entry CTA', () => {
     const logSentimentCtaBtn = container.querySelector('.logSentimentCtaBtn');
     expect(logSentimentCtaBtn).not.toBeNull();
+  });
+
+  it('renders sentiment blocks', () => {
+    const sentimentBlocks = container.querySelectorAll('.sentimentListViewBlockSection');
+    expect(sentimentBlocks.length).toBeGreaterThan(0);
+    expect(sentimentBlocks).not.toBeNull();
   });
 });
