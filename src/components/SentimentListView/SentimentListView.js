@@ -37,7 +37,7 @@ const SentimentListView = () => {
       let entriesThisMonth = [];
 
       const mostRecentMonth = months.shift();
-      if (moment().week() - moment(mostRecentMonth.entries[0].date).week() > 0) {
+      if (moment().week() - moment(mostRecentMonth.entries[0].date).week() >= 0) {
         const currentWeek = moment().week();
         mostRecentMonth.entries.forEach((entry) => {
           if (currentWeek - moment(entry.date).week() === 0) {
