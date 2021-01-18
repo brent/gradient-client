@@ -53,9 +53,9 @@ const SentimentListView = () => {
       }
 
       return [
-        { range: 'this week', entries: entriesThisWeek },
-        { range: 'last week', entries: entriesLastWeek },
-        { range: 'this month', entries: entriesThisMonth },
+        { range: 'This week', entries: entriesThisWeek },
+        { range: 'Last week', entries: entriesLastWeek },
+        { range: 'This month', entries: entriesThisMonth },
         ...months,
       ];
     };
