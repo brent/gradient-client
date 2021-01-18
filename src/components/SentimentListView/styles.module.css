@@ -2,13 +2,12 @@
   background: #f9f9f9;
   list-style-type: none;
   position: relative;
-  padding: 0;
-  margin-bottom: 4rem;
+  padding: env(safe-area-inset-top, 0) 0 6em;
 }
 
 .logSentimentCtaWrapper {
   box-sizing: border-box;
-  bottom: env(safe-area-inset-bottom, 0);
+  bottom: max(env(safe-area-inset-bottom, 0), 1em);
   padding: 0 1rem;
   position: fixed;
   width: 100%;

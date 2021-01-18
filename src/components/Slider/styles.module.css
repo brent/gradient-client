@@ -1,4 +1,5 @@
 .sliderWrapper {
+  flex: 0 0 auto;
 }
 
 .slider[type='range'],
