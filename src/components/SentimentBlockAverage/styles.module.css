@@ -1,0 +1,13 @@
+.sentimentBlockAverage {
+  color: #999;
+  padding-left: 1em;
+}
+
+.sentimentColorTile {
+  border-radius: 0.25em;
+  display: inline-block;
+  height: 1em;
+  margin-right: 0.5em;
+  text-indent: -9999em;
+  width: 1em;
+}

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { AppView, appViewType } from '../AppView';
 import { SentimentListItem } from '../SentimentListItem';
 import { SentimentListViewBlockSection } from '../SentimentListViewBlockSection';
+import { SentimentBlockAverage } from '../SentimentBlockAverage';
 import { LogSentimentCta } from '../LogSentimentCta';
 import * as api from '../../api';
 import moment from 'moment';
@@ -109,6 +110,10 @@ const SentimentListView = () => {
     return months;
   };
 
+  const getSentimentValuesFromEntries = (entries) => {
+    return entries.map((entry) => entry.sentiment);
+  };
+
   const renderEntryBlocks = (entries) => {
     return entries.map((entriesBlock) => {
       if (entriesBlock.entries.length > 0) {
@@ -120,6 +125,14 @@ const SentimentListView = () => {
             { isLoading
                 ? <p>Loading...</p>
                 : renderEntries(entriesBlock.entries, handleEntryPress)
+            }
+            { entriesBlock.entries.length > 1
+              ? (
+                <SentimentBlockAverage
+                  values={ getSentimentValuesFromEntries(entriesBlock.entries) }
+                />
+              )
+              : null
             }
           </SentimentListViewBlockSection>
         )
