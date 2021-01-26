@@ -15,55 +15,115 @@ const SentimentListView = () => {
   const history = useHistory();
 
   useEffect(() => {
-    const splitEntries = (entries) => {
-      let lastSunday = getMostRecentSunday(entries[0].date);
-      let entriesByWeek = [];
-      let week = [];
+    const splitEntriesByMonth = (entries) => {
+      let months = [];
+      let mostRecentMonth = moment(entries[0].date).month();
+      let currentMonth = {
+        range: `${moment(entries[0].date).format('MMMM')}`,
+        monthNum: mostRecentMonth,
+        entries: [],
+      };
 
       entries.forEach((entry) => {
-        if (!moment(entry.date).isSameOrAfter(lastSunday, 'day')) {
-          entriesByWeek.push(week);
-          week = [];
-          lastSunday = getMostRecentSunday(entry.date);
+        if (moment(entry.date).month() === mostRecentMonth) {
+          currentMonth.entries = [...currentMonth.entries, entry];
+        } else {
+          months.push(currentMonth);
+          mostRecentMonth = moment(entry.date).month();
+          const nextMonthRange = `${moment(entry.date).format('MMMM')}`;
+          const nextMonthNum = moment(entry.date).month();
+          currentMonth = {
+            range: nextMonthRange,
+            monthNum: nextMonthNum,
+            entries: [entry],
+          };
         }
-
-        week.push(entry);
       });
 
-      entriesByWeek.push(week);
-      const months = entriesByMonth(entriesByWeek);
+      return months;
+    };
+
+    const splitMostRecentMonthByWeeks = (month) => {
+      if (month.monthNum === moment().month()) {
+        let lastSunday = getMostRecentSunday(month.entries[0].date);
+        let entriesByWeek = [];
+        let week = [];
+
+        month.entries.forEach((entry) => {
+          if (!moment(entry.date).isSameOrAfter(lastSunday, 'day')) {
+            entriesByWeek.push(week);
+            week = [];
+            lastSunday = getMostRecentSunday(entry.date);
+          }
+
+          week.push(entry);
+        });
+
+        entriesByWeek.push(week);
+        return {
+          range: month.range,
+          monthNum: month.monthNum,
+          entries: [
+            ...entriesByWeek,
+          ],
+        };
+      }
+
+      return null;
+    };
+
+    const splitMonthIntoSections = (mostRecentMonth) => {
       let entriesThisWeek = [];
       let entriesLastWeek = [];
       let entriesThisMonth = [];
+      const currentWeek = moment().week();
 
-      const mostRecentMonth = months.shift();
-      if (moment().week() - moment(mostRecentMonth.entries[0].date).week() >= 0) {
-        const currentWeek = moment().week();
-        mostRecentMonth.entries.forEach((entry) => {
-          if (currentWeek - moment(entry.date).week() === 0) {
-            entriesThisWeek.push(entry);
-          } else if (currentWeek - moment(entry.date).week() === 1) {
-            entriesLastWeek.push(entry);
-          } else {
-            entriesThisMonth.push(entry);
-          }
-        });
-      } else {
-        months.unshift(mostRecentMonth);
+      mostRecentMonth.entries.forEach((entries) => {
+        if (currentWeek - moment(entries[0].date).week() >= 0) {
+          entries.forEach((entry) => {
+            if (currentWeek - moment(entry.date).week() === 0) {
+              entriesThisWeek.push(entry);
+            } else if (currentWeek - moment(entry.date).week() === 1) {
+              entriesLastWeek.push(entry);
+            } else {
+              entriesThisMonth.push(entry);
+            }
+          });
+        }
+      });
+
+      return {
+        range: mostRecentMonth.range,
+        monthNum: mostRecentMonth.monthNum,
+        entries: [
+          { range: 'This week', entries: entriesThisWeek },
+          { range: 'Last week', entries: entriesLastWeek },
+          { range: 'This month', entries: entriesThisMonth },
+        ],
+      };
+    };
+
+    const parseEntries = (entries) => {
+      const entriesByMonth = splitEntriesByMonth(entries);
+      const mostRecentMonthByWeek = splitMostRecentMonthByWeeks(entriesByMonth[0]);
+      const mostRecentMonthBySection = splitMonthIntoSections(mostRecentMonthByWeek);
+
+      if (entriesByMonth[0].monthNum === mostRecentMonthBySection.monthNum) {
+        entriesByMonth.shift();
       }
 
-      return [
-        { range: 'This week', entries: entriesThisWeek },
-        { range: 'Last week', entries: entriesLastWeek },
-        { range: 'This month', entries: entriesThisMonth },
-        ...months,
+      const blocks = [
+        ...mostRecentMonthBySection.entries,
+        ...entriesByMonth,
       ];
+
+      return blocks;
     };
 
     setIsLoading(true);
     getEntries(api)
       .then(entries => {
-        const entriesByBlock = splitEntries(entries);
+        const entriesByBlock = parseEntries(entries);
         setEntries(entriesByBlock);
         setIsLoading(false);
       })
@@ -79,35 +139,6 @@ const SentimentListView = () => {
     const momentDate = moment(date);
     const lastSunday = momentDate.day(0);
     return lastSunday;
-  };
-
-
-  const entriesByMonth = (entriesByWeek) => {
-    let months = [];
-    let currentMonth = { range: '', monthNum: null, entries: [] };
-    let monthName;
-    let monthNum;
-
-    entriesByWeek.forEach((week) => {
-      if (currentMonth.entries.length > 0) {
-        if (moment(currentMonth.entries[0].date).month() === moment(week[0].date).month()) {
-          currentMonth.entries = [...currentMonth.entries, ...week];
-        } else {
-          months.push(currentMonth);
-          monthName = moment(week[0].date).format('MMMM');
-          monthNum = moment(week[0].date).month() + 1;
-          currentMonth = { range: monthName, monthNum: monthNum, entries: week };
-        }
-      } else {
-        monthName = moment(week[0].date).format('MMMM');
-        monthNum = moment(week[0].date).month() + 1;
-        currentMonth.range = monthName;
-        currentMonth.monthNum = monthNum;
-        currentMonth.entries = week;
-      }
-    });
-
-    return months;
   };
 
   const getSentimentValuesFromEntries = (entries) => {
