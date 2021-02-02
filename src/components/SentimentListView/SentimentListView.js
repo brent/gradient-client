@@ -78,6 +78,8 @@ const SentimentListView = () => {
       let entriesThisMonth = [];
       const currentWeek = moment().week();
 
+      console.log('most recent month', mostRecentMonth);
+
       mostRecentMonth.entries.forEach((entries) => {
         if (currentWeek - moment(entries[0].date).week() >= 0) {
           entries.forEach((entry) => {
@@ -105,17 +107,24 @@ const SentimentListView = () => {
 
     const parseEntries = (entries) => {
       const entriesByMonth = splitEntriesByMonth(entries);
-      const mostRecentMonthByWeek = splitMostRecentMonthByWeeks(entriesByMonth[0]);
-      const mostRecentMonthBySection = splitMonthIntoSections(mostRecentMonthByWeek);
+      let blocks;
+      if (entriesByMonth[0].monthNum === moment().month()) {
+        const mostRecentMonthByWeek = splitMostRecentMonthByWeeks(entriesByMonth[0]);
+        const mostRecentMonthBySection = splitMonthIntoSections(mostRecentMonthByWeek);
 
-      if (entriesByMonth[0].monthNum === mostRecentMonthBySection.monthNum) {
-        entriesByMonth.shift();
+        if (entriesByMonth[0].monthNum === mostRecentMonthBySection.monthNum) {
+          entriesByMonth.shift();
+        }
+
+        blocks = [
+          ...mostRecentMonthBySection.entries,
+          ...entriesByMonth,
+        ];
+      } else {
+        blocks = [
+          ...entriesByMonth,
+        ];
       }
-
-      const blocks = [
-        ...mostRecentMonthBySection.entries,
-        ...entriesByMonth,
-      ];
 
       return blocks;
     };
