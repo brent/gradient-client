@@ -78,8 +78,6 @@ const SentimentListView = () => {
       let entriesThisMonth = [];
       const currentWeek = moment().week();
 
-      console.log('most recent month', mostRecentMonth);
-
       mostRecentMonth.entries.forEach((entries) => {
         if (currentWeek - moment(entries[0].date).week() >= 0) {
           entries.forEach((entry) => {
@@ -98,9 +96,9 @@ const SentimentListView = () => {
         range: mostRecentMonth.range,
         monthNum: mostRecentMonth.monthNum,
         entries: [
-          { range: 'This week', entries: entriesThisWeek },
-          { range: 'Last week', entries: entriesLastWeek },
-          { range: 'This month', entries: entriesThisMonth },
+          { range: 'This week', monthNum: mostRecentMonth.monthNum, entries: entriesThisWeek },
+          { range: 'Last week', monthNum: mostRecentMonth.monthNum, entries: entriesLastWeek },
+          { range: 'This month', monthNum: mostRecentMonth.monthNum, entries: entriesThisMonth },
         ],
       };
     };
