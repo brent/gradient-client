@@ -1,5 +1,5 @@
 import React from 'react';
-import { SentimentListItem } from '../SentimentListItem';
+import { SentimentListItemFull } from '../SentimentListItemFull';
 import { SentimentBlockAverage } from '../SentimentBlockAverage';
 import styles from './styles.module.css';
 
@@ -12,7 +12,7 @@ const SentimentListViewBlockSection = ({
 }) => {
   const renderEntries = (entries, onEntryClick) => {
     return entries.map(entry => (
-      <SentimentListItem
+      <SentimentListItemFull
         key={entry.id}
         entry={entry}
         onClick={(e) => onEntryClick(e, entry)}
