@@ -16,9 +16,11 @@ const SentimentListView = () => {
     const splitEntriesByMonth = (entries) => {
       let months = [];
       let mostRecentMonth = moment(entries[0].date).month();
+      let daysInMonth = moment(entries[0].date).daysInMonth();
       let currentMonth = {
         range: `${moment(entries[0].date).format('MMMM')}`,
         monthNum: mostRecentMonth,
+        daysInMonth: daysInMonth,
         entries: [],
       };
 
@@ -30,9 +32,11 @@ const SentimentListView = () => {
           mostRecentMonth = moment(entry.date).month();
           const nextMonthRange = `${moment(entry.date).format('MMMM')}`;
           const nextMonthNum = moment(entry.date).month();
+          const nextDaysInMonth= moment(entry.date).daysInMonth();
           currentMonth = {
             range: nextMonthRange,
             monthNum: nextMonthNum,
+            daysInMonth: nextDaysInMonth,
             entries: [entry],
           };
         }
@@ -153,6 +157,7 @@ const SentimentListView = () => {
           <SentimentListViewBlockSection
             range={ entriesBlock.range }
             monthNum={ entriesBlock.monthNum }
+            daysInMonth={ entriesBlock.daysInMonth }
             entries={ entriesBlock.entries }
             isLoading={ isLoading }
             onEntryClick={ handleEntryPress }

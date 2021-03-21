@@ -3,24 +3,45 @@ import styles from './styles.module.css';
 import moment from 'moment';
 
 const SentimentListItemMonth = ({
-  entry: { id, color, sentiment, date },
-  onClick: onClick,
+  color,
+  dayDate,
+  firstOfMonth,
+  onClick,
 }) => {
-  const dayOfWeek = moment(date).format('dddd');
-  const entryDate = moment(date).format('MMM Do, YYYY');
+  const startingCol = dayDate === 1
+    ?{ 'grid-column': `${firstOfMonth}` }
+    : null;
 
   return (
     <li
-      key={ id }
       className={ styles.sentimentListItemMonth }
+      style={{ background: `#${color}`, ...startingCol }}
       onClick={ onClick }
     >
-      <h4 className={ styles.entryDate }>{ entryDate }</h4>
-      <h3 className={ styles.dayOfWeek }>{ dayOfWeek }</h3>
+      <h3 className={ styles.dayDate }>{ dayDate }</h3>
+    </li>
+  );
+}
+
+const SentimentListItemMonthBlank = ({
+  dayDate,
+  firstOfMonth,
+}) => {
+  const startingCol = dayDate === 1
+    ? { 'grid-column': `${firstOfMonth}` }
+    : null;
+
+  return (
+    <li
+      className={ styles.sentimentListItemMonthBlank }
+      style={{ ...startingCol }}
+    >
+      <h3 className={ styles.dayDate }>{ dayDate }</h3>
     </li>
   );
 }
 
 export {
   SentimentListItemMonth,
+  SentimentListItemMonthBlank,
 }
