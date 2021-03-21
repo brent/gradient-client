@@ -1,1 +1,31 @@
-.sentimentListItemCondensed { }
+.sentimentListItemCondensed {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.colorBlock {
+  border-radius: 0.25rem;
+  display: block;
+  flex: 0 0 auto;
+  height: 2.5rem;
+  margin-right: 1rem;
+  text-indent: -9999px;
+  width: 2.5rem;
+}
+
+.dateMetadata {
+  flex: 1 0 auto;
+}
+
+.entryDate {
+  color: #777;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+}
+
+.dayOfWeek {
+  color: #444;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
