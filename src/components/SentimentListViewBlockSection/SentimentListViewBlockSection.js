@@ -69,15 +69,13 @@ const SentimentListViewBlockSection = ({
         return monthCells;
       }
 
+      const dayHeadings = ['S','M','T','W','T','F'].map((day) => (
+        <li className={ styles.weekDayHeading }>{ day }</li>
+      ));
+
       entryItems = (
         <div className={ styles.entriesMonthWrapper }>
-          <li className={ styles.weekDayHeading }>S</li>
-          <li className={ styles.weekDayHeading }>M</li>
-          <li className={ styles.weekDayHeading }>T</li>
-          <li className={ styles.weekDayHeading }>W</li>
-          <li className={ styles.weekDayHeading }>T</li>
-          <li className={ styles.weekDayHeading }>F</li>
-          <li className={ styles.weekDayHeading }>S</li>
+          { dayHeadings }
           { monthDays(entries) }
         </div>
       );
