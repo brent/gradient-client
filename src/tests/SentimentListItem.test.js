@@ -2,7 +2,7 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 
-import { SentimentListItem } from '../components/SentimentListItem';
+import { SentimentListItemFull } from '../components/SentimentListItemFull';
 
 const fakeEntry = {
   id: 1,
@@ -18,7 +18,7 @@ const fakeEntry = {
 
 const onClick = (e) => console.log('clicked');
 
-describe('SentimentListItem', () => {
+describe('SentimentListItemFull', () => {
   let container = null;
 
   beforeEach(async () => {
@@ -26,7 +26,7 @@ describe('SentimentListItem', () => {
     document.body.appendChild(container);
     await act(async () => {
       render(
-        <SentimentListItem
+        <SentimentListItemFull
           entry={ fakeEntry }
           onClick={ onClick } 
         />,

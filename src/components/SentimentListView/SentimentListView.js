@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppView, appViewType } from '../AppView';
-import { SentimentListItem } from '../SentimentListItem';
 import { SentimentListViewBlockSection } from '../SentimentListViewBlockSection';
-import { SentimentBlockAverage } from '../SentimentBlockAverage';
 import { LogSentimentCta } from '../LogSentimentCta';
 import * as api from '../../api';
 import moment from 'moment';
@@ -18,9 +16,11 @@ const SentimentListView = () => {
     const splitEntriesByMonth = (entries) => {
       let months = [];
       let mostRecentMonth = moment(entries[0].date).month();
+      let daysInMonth = moment(entries[0].date).daysInMonth();
       let currentMonth = {
         range: `${moment(entries[0].date).format('MMMM')}`,
         monthNum: mostRecentMonth,
+        daysInMonth: daysInMonth,
         entries: [],
       };
 
@@ -32,9 +32,11 @@ const SentimentListView = () => {
           mostRecentMonth = moment(entry.date).month();
           const nextMonthRange = `${moment(entry.date).format('MMMM')}`;
           const nextMonthNum = moment(entry.date).month();
+          const nextDaysInMonth= moment(entry.date).daysInMonth();
           currentMonth = {
             range: nextMonthRange,
             monthNum: nextMonthNum,
+            daysInMonth: nextDaysInMonth,
             entries: [entry],
           };
         }
@@ -78,8 +80,6 @@ const SentimentListView = () => {
       let entriesThisMonth = [];
       const currentWeek = moment().week();
 
-      console.log('most recent month', mostRecentMonth);
-
       mostRecentMonth.entries.forEach((entries) => {
         if (currentWeek - moment(entries[0].date).week() >= 0) {
           entries.forEach((entry) => {
@@ -98,9 +98,9 @@ const SentimentListView = () => {
         range: mostRecentMonth.range,
         monthNum: mostRecentMonth.monthNum,
         entries: [
-          { range: 'This week', entries: entriesThisWeek },
-          { range: 'Last week', entries: entriesLastWeek },
-          { range: 'This month', entries: entriesThisMonth },
+          { range: 'This week', monthNum: mostRecentMonth.monthNum, entries: entriesThisWeek },
+          { range: 'Last week', monthNum: mostRecentMonth.monthNum, entries: entriesLastWeek },
+          { range: 'This month', monthNum: mostRecentMonth.monthNum, entries: entriesThisMonth },
         ],
       };
     };
@@ -150,44 +150,22 @@ const SentimentListView = () => {
     return lastSunday;
   };
 
-  const getSentimentValuesFromEntries = (entries) => {
-    return entries.map((entry) => entry.sentiment);
-  };
-
   const renderEntryBlocks = (entries) => {
     return entries.map((entriesBlock) => {
       if (entriesBlock.entries.length > 0) {
         return (
           <SentimentListViewBlockSection
-            title={ entriesBlock.range }
+            range={ entriesBlock.range }
+            monthNum={ entriesBlock.monthNum }
+            daysInMonth={ entriesBlock.daysInMonth }
+            entries={ entriesBlock.entries }
+            isLoading={ isLoading }
+            onEntryClick={ handleEntryPress }
             key={ entries.indexOf(entriesBlock) }
-          >
-            { isLoading
-                ? <p>Loading...</p>
-                : renderEntries(entriesBlock.entries, handleEntryPress)
-            }
-            { entriesBlock.entries.length > 1
-              ? (
-                <SentimentBlockAverage
-                  values={ getSentimentValuesFromEntries(entriesBlock.entries) }
-                />
-              )
-              : null
-            }
-          </SentimentListViewBlockSection>
+          />
         )
       }
     });
-  };
-
-  const renderEntries = (entries, onClick) => {
-    return entries.map(entry => (
-      <SentimentListItem
-        key={entry.id}
-        entry={entry}
-        onClick={(e) => onClick(e, entry)}
-      />
-    ));
   };
 
   const handleLogSentimentCtaPress = (e, history) => {

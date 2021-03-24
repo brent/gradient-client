@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.module.css';
 import moment from 'moment';
 
-const SentimentListItem = ({
+const SentimentListItemFull = ({
   entry: { id, color, sentiment, date },
   onClick: onClick,
 }) => {
@@ -23,5 +23,5 @@ const SentimentListItem = ({
 }
 
 export {
-  SentimentListItem,
+  SentimentListItemFull,
 }

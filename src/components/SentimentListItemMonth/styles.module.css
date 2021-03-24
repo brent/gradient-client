@@ -1,0 +1,16 @@
+.sentimentListItemMonth,
+.sentimentListItemMonthBlank {
+  border-radius: 0.25rem;
+  color: #fff;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sentimentListItemMonthBlank {
+  border: 1px solid #eee;
+  color: #ccc;
+}

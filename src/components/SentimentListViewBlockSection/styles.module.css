@@ -2,11 +2,6 @@
   margin: 0 1rem 3rem;
 }
 
-.sentimentListViewBlockSection li {
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-}
-
 .sentimentListViewBlockSection li:last-child {
   margin-bottom: 0;
 }
@@ -16,4 +11,18 @@
   font-size: 1rem;
   font-weight: bold;
   margin: 0.5rem 0 1rem 0.5rem;
+}
+
+.weekDayHeading {
+  color: #ccc;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.entriesMonthWrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  place-items: center center;
+  row-gap: 1rem;
+  margin-bottom: 1rem;
 }
