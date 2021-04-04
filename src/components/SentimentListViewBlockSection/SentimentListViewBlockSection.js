@@ -37,7 +37,7 @@ const SentimentListViewBlockSection = ({
       const monthDays = (entries) => {
         let reversedEntries = [...entries].reverse();
         let monthCells = [];
-        const firstOfMonth = moment(entries[0].date).startOf('month').day();
+        const firstOfMonth = moment(entries[0].date).startOf('month').day() + 1;
 
         for (let i = 1; i <= daysInMonth; i++) {
           const matchedEntry = reversedEntries.find((entry) => {
