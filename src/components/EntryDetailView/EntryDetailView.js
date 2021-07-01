@@ -18,11 +18,14 @@ export const EntryDetailView = (props) => {
 
   useEffect(() => {
     api.getEntryForUser(entry.id)
-      .then(res => setInsights(res.insights))
+      .then(res => {
+        console.log('res', res);
+        return res.insights;
+      })
+      .then(insights => setInsights(insights))
   }, []);
 
   useEffect(() => {
-    console.log('insights', insights);
     if (insights) {
       let data = insights.allSentiment.map(entry => entry.sentiment);
       const density = getDensityValues(data);
@@ -38,9 +41,6 @@ export const EntryDetailView = (props) => {
           },
         ],
       });
-      console.log('density', density);
-      console.log('density labels', density.map((d) => d[0]));
-      console.log('density values', density.map((d) => d[1]));
     }
   }, [insights]);
 
@@ -59,7 +59,7 @@ export const EntryDetailView = (props) => {
         <p className={ styles.entryDate }>{ date }</p>
         <p className={ styles.entryDay }>{ dayOfWeek }</p>
         <p className={ styles.entryColor }>#{ entry.color }</p>
-        <LineChart data={chartData} />
+        <LineChart data={chartData} annotation={entry.sentiment} />
       </div>
       <ContentCard className={ styles.noteContentWrapper }>
         {
