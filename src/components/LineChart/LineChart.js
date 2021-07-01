@@ -2,6 +2,7 @@ import React from 'react';
 import { Chart } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import annotationPlugin from 'chartjs-plugin-annotation';
+import styles from './styles.module.css';
 
 Chart.register(annotationPlugin);
 
@@ -81,7 +82,7 @@ export const LineChart = ({ data, annotation, options = defaultOptions }) => {
   console.log('options', options);
 
   return (
-    <div className='lineChartWrapper'>
+    <div className={ styles.lineChartWrapper }>
       <Line data={data} options={options} />
     </div>
   );
