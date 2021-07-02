@@ -6,82 +6,84 @@ import styles from './styles.module.css';
 
 Chart.register(annotationPlugin);
 
-let defaultOptions = {
-  animation: false,
-  responsive: true,
-  layout: {
-    padding: {
-      top: 20,
-    },
-  },
-  scales: {
-    y: {
-      grid: {
-        display: false,
-        drawBorder: false,
-      },
-      ticks: {
-        display: false,
-      },
-      beginAtZero: true,
-    },
-    x: {
-      grid: {
-        display: false,
-        drawBorder: false,
-      },
-      ticks: {
-        display: false,
-        color: 'rgb(255,255,255)',
+
+export const LineChart = ({
+  data,
+  annotation,
+  label,
+}) => {
+  let defaultOptions = {
+    animation: false,
+    responsive: true,
+    layout: {
+      padding: {
+        top: 20,
       },
     },
-  },
-  elements: {
-    point: {
-      radius: 0,
+    scales: {
+      y: {
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          display: false,
+        },
+        beginAtZero: true,
+      },
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          display: false,
+          color: 'rgb(255,255,255)',
+        },
+      },
     },
-  },
-  plugins: {
-    legend: {
-      display: false,
+    elements: {
+      point: {
+        radius: 0,
+      },
     },
-    annotation: {
-      annotations: {
-        todayLine: {
-          type: 'line',
-          xMin: 0,
-          xMax: 0,
-          borderColor: 'rgb(255,255,255)',
-          borderDash: [4,4],
-          label: {
-            enabled: true,
-            font: {
-              family: 'Heebo',
-              style: 'normal',
-              size: 14,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      annotation: {
+        annotations: {
+          todayLine: {
+            type: 'line',
+            xMin: annotation/10,
+            xMax: annotation/10,
+            borderColor: 'rgb(255,255,255)',
+            borderDash: [4,4],
+            label: {
+              enabled: true,
+              font: {
+                family: 'Heebo',
+                style: 'normal',
+                size: 14,
+              },
+              backgroundColor: 'rgba(255,255,255,0.0)',
+              color: '#fff',
+              content: label,
+              position: 'start',
+              cornerRadius: 0,
+              xPadding: 0,
+              yPadding: 0,
+              yAdjust: -20,
             },
-            backgroundColor: 'rgba(255,255,255,0.0)',
-            color: '#fff',
-            content: '',
-            position: 'start',
-            cornerRadius: 0,
-            xPadding: 0,
-            yPadding: 0,
-            yAdjust: -20,
           },
         },
       },
     },
-  },
-};
+  };
 
-export const LineChart = ({ data, annotation, options = defaultOptions }) => {
-  options.plugins.annotation.annotations.todayLine.xMin = annotation/10;
-  options.plugins.annotation.annotations.todayLine.xMax = annotation/10;
-  options.plugins.annotation.annotations.todayLine.label.content = 'TODAY vs ALL DAYS'
   return (
     <div className={ styles.lineChartWrapper }>
-      <Line data={data} options={options} />
+      <Line data={data} options={defaultOptions} />
     </div>
   );
 }
