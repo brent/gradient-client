@@ -7,6 +7,9 @@ import styles from './styles.module.css';
 import moment from 'moment';
 import * as api from '../../api';
 import { getDensityValues } from '../../utils/ChartHelpers';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
 
 export const EntryDetailView = (props) => {
   const history = useHistory();
@@ -105,21 +108,31 @@ export const EntryDetailView = (props) => {
         <p className={ styles.entryDate }>{ date }</p>
         <p className={ styles.entryDay }>{ dayOfWeek }</p>
         <p className={ styles.entryColor }>#{ entry.color }</p>
-        <LineChart
-          data={monthChartData}
-          annotation={entry.sentiment}
-          label={`TODAY vs ${moment(entry.date).format('MMMM')}`}
-        />
-        <LineChart
-          data={yearChartData}
-          annotation={entry.sentiment}
-          label={`TODAY vs ${moment(entry.date).format('YYYY')}`}
-        />
-        <LineChart 
-          data={allDaysChartData}
-          annotation={entry.sentiment}
-          label='TODAY vs ALL DAYS'
-        />
+        <div style={{padding:'1rem'}}>
+          <Slider settings={{
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }}>
+            <LineChart
+              data={monthChartData}
+              annotation={entry.sentiment}
+              label={`TODAY vs ${moment(entry.date).format('MMMM')}`}
+            />
+            <LineChart
+              data={yearChartData}
+              annotation={entry.sentiment}
+              label={`TODAY vs ${moment(entry.date).format('YYYY')}`}
+            />
+            <LineChart 
+              data={allDaysChartData}
+              annotation={entry.sentiment}
+              label='TODAY vs ALL DAYS'
+            />
+          </Slider>
+        </div>
       </div>
       <ContentCard className={ styles.noteContentWrapper }>
         {
