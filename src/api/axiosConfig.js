@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const gvAxios = axios.create();
 
-const BASE_URL = 'api/v1';
+const BASE_URL = '/api/v1';
 
 gvAxios.interceptors.request.use((request) => {
     const token = localStorage.getItem('access');

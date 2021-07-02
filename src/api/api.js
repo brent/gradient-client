@@ -34,6 +34,11 @@ async function getEntriesForUser() {
   return res.data;
 }
 
+async function getEntryForUser(entryId) {
+  const res = await axios.get(`${BASE_URL}/entries/${entryId}`);
+  return res.data;
+}
+
 async function logEntryForUser({ entry, noteContent }) {
   const { sentiment, color, date } = entry;
   const params = setPostBody({ sentiment, color, noteContent, date });
@@ -56,4 +61,5 @@ export {
   signUpUser,
   getEntriesForUser,
   logEntryForUser,
+  getEntryForUser,
 }
