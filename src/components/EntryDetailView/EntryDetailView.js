@@ -10,6 +10,7 @@ import { getDensityValues } from '../../utils/ChartHelpers';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
+import { SentimentColorContainer } from '../SentimentColorContainer';
 
 export const EntryDetailView = (props) => {
   const history = useHistory();
@@ -101,13 +102,13 @@ export const EntryDetailView = (props) => {
   return (
     <AppView
       className={ styles.entryDetailView }
-      style={{ backgroundColor: `#${entry.color}` }}
       type={ appViewType.fullBleed }
     >
-      <div className={ styles.entryMetadata }>
-        <p className={ styles.entryDate }>{ date }</p>
-        <p className={ styles.entryDay }>{ dayOfWeek }</p>
-        <p className={ styles.entryColor }>#{ entry.color }</p>
+      <SentimentColorContainer
+        date={ date }
+        dayOfWeek={ dayOfWeek }
+        hexColor={ entry.color }
+      >
         <div style={{padding:'1rem'}}>
           <Slider settings={{
             dots: true,
@@ -133,7 +134,8 @@ export const EntryDetailView = (props) => {
             />
           </Slider>
         </div>
-      </div>
+      </SentimentColorContainer>
+
       <ContentCard className={ styles.noteContentWrapper }>
         {
           entry.note_content ? (

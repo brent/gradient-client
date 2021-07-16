@@ -5,28 +5,6 @@
   height: 100vh;
 }
 
-.entryMetadata {
-  display: flex;
-  color: #fff;
-  flex-direction: column;
-  flex: 1 1 auto;
-  justify-content: center;
-  padding: 1rem;
-}
-
-.entryDate {
-  font-size: 1.25rem;
-}
-
-.entryDay {
-  font-size: 4rem;
-  font-weight: 900;
-}
-
-.entryColor {
-  font-size: 1.25rem;
-}
-
 .noteContentWrapper {
   border-radius: 1rem 1rem 0 0;
 }
