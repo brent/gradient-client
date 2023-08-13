@@ -7,6 +7,9 @@
   padding: 1rem;
 }
 
+.entryDateWrapper {
+}
+
 .entryDate {
   font-size: 1.25rem;
 }
@@ -18,4 +21,7 @@
 
 .entryColor {
   font-size: 1.25rem;
+}
+
+.monthDetailsCta {
 }

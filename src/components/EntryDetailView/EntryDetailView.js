@@ -21,6 +21,8 @@ export const EntryDetailView = (props) => {
   const [monthChartData, setMonthChartData] = useState(null);
   const dayOfWeek = moment(entry.date).format('dddd');
   const date = moment(entry.date).format('MMM Do, YYYY');
+  const year = moment(entry.date).year();
+  const month = moment(entry.date).month();
 
   useEffect(() => {
     api.getEntryForUser(entry.id)
@@ -83,13 +85,11 @@ export const EntryDetailView = (props) => {
   }, [insights]);
 
   const getEntriesInYear = (entries) => {
-    const year = moment(entry.date).year();
     const entriesInYear = entries.filter((entry) => moment(entry.date).year() === year);
     return entriesInYear;
   };
 
   const getEntriesInMonth = (entries) => {
-    const month = moment(entry.date).month();
     const entriesInMonth = entries.filter((entry) => moment(entry.date).month() === month);
     return entriesInMonth;
   };
@@ -105,7 +105,9 @@ export const EntryDetailView = (props) => {
       type={ appViewType.fullBleed }
     >
       <SentimentColorContainer
-        date={ date }
+        monthNum={ month + 1 }
+        yearNum={ year}
+        dateString={ date }
         dayOfWeek={ dayOfWeek }
         hexColor={ entry.color }
       >
